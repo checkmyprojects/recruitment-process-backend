@@ -84,7 +84,7 @@ public class AuthController {
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
         if (strRoles == null) {
-            Role userRole = roleService.findByName(ERole.ROLE_USER)
+            Role userRole = roleService.findByName(ERole.ROLE_PEOPLE)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
@@ -95,13 +95,18 @@ public class AuthController {
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
                         break;
-                    case "mod":
-                        Role modRole = roleService.findByName(ERole.ROLE_MODERATOR)
+                    case "business":
+                        Role modRole = roleService.findByName(ERole.ROLE_BUSINESS)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
                         break;
+                    case "interview":
+                        Role interRole = roleService.findByName(ERole.ROLE_INTERVIEWER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(interRole);
+                        break;
                     default:
-                        Role userRole = roleService.findByName(ERole.ROLE_USER)
+                        Role userRole = roleService.findByName(ERole.ROLE_PEOPLE)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
                 }
