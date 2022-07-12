@@ -22,4 +22,9 @@ public class RoleServiceImpl implements RoleService{
     public Optional<Role> findByName(ERole name) {
         return roleRepo.findByName(name);
     }
+
+    public void save(Role r)
+    {
+        roleRepo.save(r);
+    }
 }
