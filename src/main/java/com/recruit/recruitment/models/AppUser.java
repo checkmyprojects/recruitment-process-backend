@@ -42,13 +42,15 @@ public class AppUser
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @NotBlank
     private boolean isActive;
 
-    public AppUser() {
-    }
+    @ManyToOne
+    private Interview interview;
 
-    public AppUser(String name, String username, String email, String password) {
+    public AppUser(){}
+
+    public AppUser(String name, String username, String email, String password)
+    {
         this.name = name;
         this.username = username;
         this.email = email;

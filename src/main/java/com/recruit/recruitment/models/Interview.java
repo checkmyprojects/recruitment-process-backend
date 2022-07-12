@@ -13,10 +13,10 @@ public class Interview
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
+    @OneToMany(mappedBy = "interview")
     private Set<Candidate> candidates;
 
-    @OneToMany
+    @OneToMany(mappedBy = "interview")
     private Set<AppUser> interviewers;
 
     @OneToOne

@@ -31,6 +31,9 @@ public class Candidate
     @NotBlank
     private boolean hired;
 
+    @ManyToOne
+    private Interview interview;
+
     public Candidate(){}
 
     public Candidate(String name, String surname, String email, String skills, String studies, String location, long experience)
