@@ -16,8 +16,8 @@ public class Interview
     @ManyToOne
     private Candidate candidate;
 
-    @OneToMany(mappedBy = "interview")
-    private Set<AppUser> interviewers;
+    @OneToOne
+    private AppUser interviewer;
 
     @OneToOne
     private Selection selection;
@@ -45,20 +45,20 @@ public class Interview
         this.id = id;
     }
 
-    public Candidate getCandidates() {
+    public Candidate getCandidate() {
         return candidate;
     }
 
-    public void setCandidates(Candidate candidate) {
+    public void setCandidate(Candidate candidate) {
         this.candidate = candidate;
     }
 
-    public Set<AppUser> getInterviewers() {
-        return interviewers;
+    public AppUser getInterviewer() {
+        return interviewer;
     }
 
-    public void setInterviewers(Set<AppUser> interviewers) {
-        this.interviewers = interviewers;
+    public void setInterviewer(AppUser interviewer) {
+        this.interviewer = interviewer;
     }
 
     public Selection getSelection() {

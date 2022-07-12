@@ -44,9 +44,6 @@ public class AppUser
 
     private boolean isActive;
 
-    @ManyToOne
-    private Interview interview;
-
     public AppUser(){}
 
     public AppUser(String name, String username, String email, String password)

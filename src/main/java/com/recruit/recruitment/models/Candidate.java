@@ -33,7 +33,7 @@ public class Candidate
     private boolean hired;
 
     @OneToMany(mappedBy = "candidate")
-    private Set<Interview> interview;
+    private Set<Interview> interviews;
 
     public Candidate(){}
 
@@ -51,6 +51,14 @@ public class Candidate
 
     public Long getId() {
         return id;
+    }
+
+    public Set<Interview> getInterviews() {
+        return interviews;
+    }
+
+    public void setInterviews(Set<Interview> interviews) {
+        this.interviews = interviews;
     }
 
     public void setId(Long id) {
