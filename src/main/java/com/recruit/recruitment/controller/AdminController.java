@@ -42,10 +42,7 @@ public class AdminController
         if(user != null)
         {
             List<Role> roles = new ArrayList<>(user.getRoles().stream().toList());
-            Role rr = new Role();
-            rr.setName(r.role);
-            rservice.save(rr);
-            roles.add(rr);
+            roles.add(rservice.findByName(r.role).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
             user.setRoles(new HashSet<>(roles));
             service.saveUser(user);
             return true;
