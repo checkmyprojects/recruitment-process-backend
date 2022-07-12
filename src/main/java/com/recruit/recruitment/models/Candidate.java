@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Table(name = "candidates")
@@ -32,7 +33,7 @@ public class Candidate
     private boolean hired;
 
     @OneToMany(mappedBy = "candidate")
-    private Interview interview;
+    private Set<Interview> interview;
 
     public Candidate(){}
 
