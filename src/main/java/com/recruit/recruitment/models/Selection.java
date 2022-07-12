@@ -28,11 +28,14 @@ public class Selection
     private String status, priority;
 
     @NotBlank
+    private long project_id;
+
+    @NotBlank
     private boolean remote;
 
     public Selection(){}
 
-    public Selection(AppUser created_by, Date start_date, Date end_date, String name, String description, String requirements, String location, String sector, String status, String priority, boolean remote)
+    public Selection(AppUser created_by, Date start_date, Date end_date, String name, String description, String requirements, String location, String sector, String status, String priority, long project_id, boolean remote)
     {
         this.created_by = created_by;
         this.start_date = start_date;
@@ -44,6 +47,7 @@ public class Selection
         this.sector = sector;
         this.status = status;
         this.priority = priority;
+        this.project_id = project_id;
         this.remote = remote;
     }
 
