@@ -44,8 +44,8 @@ public class AppUser
 
     private boolean isActive;
 
-    @OneToOne(mappedBy = "interviewer")
-    private Interview interview;
+    @OneToMany(mappedBy = "interviewer")
+    private Set<Interview> interviews;
 
     public AppUser(){}
 
@@ -56,6 +56,14 @@ public class AppUser
         this.email = email;
         this.password = password;
         this.isActive = true;
+    }
+
+    public Set<Interview> getInterviews() {
+        return interviews;
+    }
+
+    public void setInterviews(Set<Interview> interviews) {
+        this.interviews = interviews;
     }
 
     public Long getId() {

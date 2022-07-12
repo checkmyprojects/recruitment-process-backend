@@ -16,7 +16,7 @@ public class Interview
     @ManyToOne
     private Candidate candidate;
 
-    @OneToOne
+    @ManyToOne
     private AppUser interviewer;
 
     @OneToOne
