@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -37,5 +39,23 @@ public class AppUserServiceImpl implements AppUserService{
     @Override
     public AppUser saveUser(AppUser user) {
         return userRepo.save(user);
+    }
+
+    public List<AppUser> all()
+    {
+        return userRepo.findAll();
+    }
+
+    public AppUser findById(long id)
+    {
+        try
+        {
+            return userRepo.findById(id).orElseThrow();
+        }
+        catch(NoSuchElementException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }
