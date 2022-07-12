@@ -13,8 +13,8 @@ public class Interview
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "interview")
-    private Set<Candidate> candidates;
+    @ManyToOne
+    private Candidate candidate;
 
     @OneToMany(mappedBy = "interview")
     private Set<AppUser> interviewers;
@@ -45,12 +45,12 @@ public class Interview
         this.id = id;
     }
 
-    public Set<Candidate> getCandidates() {
-        return candidates;
+    public Candidate getCandidates() {
+        return candidate;
     }
 
-    public void setCandidates(Set<Candidate> candidates) {
-        this.candidates = candidates;
+    public void setCandidates(Candidate candidate) {
+        this.candidate = candidate;
     }
 
     public Set<AppUser> getInterviewers() {

@@ -31,7 +31,7 @@ public class Candidate
     @NotBlank
     private boolean hired;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "candidate")
     private Interview interview;
 
     public Candidate(){}
