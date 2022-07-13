@@ -26,10 +26,10 @@ public class Candidate
     @NotBlank
     private String skills, studies, location;
 
-    @NotBlank
+
     private long experience;
 
-    @NotBlank
+
     private boolean hired;
 
     @OneToMany(mappedBy = "candidate")
