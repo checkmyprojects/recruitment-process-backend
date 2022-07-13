@@ -1,10 +1,12 @@
 package com.recruit.recruitment.controller;
 
 import com.recruit.recruitment.models.AppUser;
+import com.recruit.recruitment.models.ERole;
 import com.recruit.recruitment.models.Role;
 import com.recruit.recruitment.payload.request.RoleRequest;
 import com.recruit.recruitment.service.AppUserServiceImpl;
 import com.recruit.recruitment.service.RoleServiceImpl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,24 +31,38 @@ public class AdminController
 
     @GetMapping("users")
     //@PreAuthorize("hasRole('ADMIN')")
-    List<AppUser> all()
+    ResponseEntity<List<AppUser>> all()
     {
-        return service.all();
+        return ResponseEntity.ok().body(service.all());
     }
 
     @PostMapping("role")
     //@PreAuthorize("hasRole('ADMIN')")
-    boolean changeRole(@RequestBody RoleRequest r)
+    ResponseEntity<Boolean> changeRole(@RequestBody RoleRequest r)
     {
         AppUser user = service.findById(r.id);
         if(user != null)
         {
-            List<Role> roles = new ArrayList<>(user.getRoles().stream().toList());
-            roles.add(rservice.findByName(r.role).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+            List<Role> roles = new ArrayList<>();
+            r.roles.forEach(role ->
+            {
+                switch(role)
+                {
+                    case "admin":
+                        roles.add(rservice.findByName(ERole.ROLE_ADMIN).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+                        break;
+                    case "mod":
+                        roles.add(rservice.findByName(ERole.ROLE_MODERATOR).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+                        break;
+                    case "user":
+                        roles.add(rservice.findByName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+                        break;
+                }
+            });
             user.setRoles(new HashSet<>(roles));
             service.saveUser(user);
-            return true;
+            return ResponseEntity.ok().body(true);
         }
-        return false;
+        return ResponseEntity.ok().body(false);
     }
 }
