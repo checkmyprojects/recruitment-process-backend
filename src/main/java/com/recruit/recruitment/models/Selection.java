@@ -30,14 +30,14 @@ public class Selection
     private String status, priority;
 
 
-    private long project_id;
+    private Long project_id;
 
 
     private boolean remote;
 
     public Selection(){}
 
-    public Selection(AppUser created_by, Date start_date, Date end_date, String name, String description, String requirements, String location, String sector, String status, String priority, long project_id, boolean remote)
+    public Selection(AppUser created_by, Date start_date, Date end_date, String name, String description, String requirements, String location, String sector, String status, String priority, Long project_id, boolean remote)
     {
         this.created_by = created_by;
         this.start_date = start_date;
@@ -147,5 +147,13 @@ public class Selection
 
     public void setRemote(boolean remote) {
         this.remote = remote;
+    }
+
+    public Long getProject_id() {
+        return project_id;
+    }
+
+    public void setProject_id(Long project_id) {
+        this.project_id = project_id;
     }
 }
