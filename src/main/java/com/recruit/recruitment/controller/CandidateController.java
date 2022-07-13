@@ -3,11 +3,10 @@ package com.recruit.recruitment.controller;
 import com.recruit.recruitment.models.Candidate;
 import com.recruit.recruitment.service.CandidateService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -26,6 +25,13 @@ public class CandidateController {
         return ResponseEntity.ok().body(candidateService.listAllCandidates());
     }
 
+    @PostMapping("/new")
+    ResponseEntity<Candidate> saveCandidate(@RequestBody Candidate candidate) {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/candidate/new").toUriString());
+        System.out.println(candidate.getName());
+        return ResponseEntity.created(uri).body(candidateService.saveCandidate(candidate));
+
+    }
 }
 
 

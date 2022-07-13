@@ -23,4 +23,9 @@ public class CandidateServiceImpl implements CandidateService {
     public List<Candidate> listAllCandidates() {
         return candidateRepo.findAll();
     }
+
+    @Override
+    public Candidate saveCandidate(Candidate candidate) {
+        return candidateRepo.save(candidate);
+    }
 }

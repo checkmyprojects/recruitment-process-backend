@@ -7,4 +7,5 @@ import java.util.List;
 public interface CandidateService {
 
     List<Candidate> listAllCandidates ();
+    Candidate saveCandidate (Candidate candidate);
 }

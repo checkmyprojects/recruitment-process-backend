@@ -26,18 +26,18 @@ public class Candidate
     @NotBlank
     private String skills, studies, location;
 
-    @NotBlank
     private long experience;
 
-    @NotBlank
     private boolean hired;
+
+    private String state;
 
     @OneToMany(mappedBy = "candidate")
     private Set<Interview> interviews;
 
     public Candidate(){}
 
-    public Candidate(String name, String surname, String email, String skills, String studies, String location, long experience)
+    public Candidate(String name, String surname, String email, String skills, String studies, String location, long experience, String state)
     {
         this.name = name;
         this.surname = surname;
@@ -47,6 +47,7 @@ public class Candidate
         this.location = location;
         this.experience = experience;
         this.hired = false;
+        this.state = state;
     }
 
     public Long getId() {
@@ -127,5 +128,13 @@ public class Candidate
 
     public void setHired(boolean hired) {
         this.hired = hired;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
