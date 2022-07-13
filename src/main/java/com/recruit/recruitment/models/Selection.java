@@ -13,11 +13,11 @@ public class Selection
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+
     @OneToOne
     private AppUser created_by;
 
-    @NotBlank
+
     private Date start_date, end_date;
 
     @NotBlank
@@ -27,10 +27,10 @@ public class Selection
     @Size(max = 10)
     private String status, priority;
 
-    @NotBlank
+
     private long project_id;
 
-    @NotBlank
+
     private boolean remote;
 
     public Selection(){}
