@@ -1,5 +1,7 @@
 package com.recruit.recruitment.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -17,7 +19,7 @@ public class Selection
     @OneToOne
     private AppUser created_by;
 
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date start_date, end_date;
 
     @NotBlank
