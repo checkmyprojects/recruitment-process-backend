@@ -28,4 +28,7 @@ public class CandidateServiceImpl implements CandidateService {
     public Candidate saveCandidate(Candidate candidate) {
         return candidateRepo.save(candidate);
     }
+
+    @Override
+    public void deleteCandidateById(Long id) { candidateRepo.deleteById(id); }
 }

@@ -30,7 +30,25 @@ public class CandidateController {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/candidate/new").toUriString());
         System.out.println(candidate.getName());
         return ResponseEntity.created(uri).body(candidateService.saveCandidate(candidate));
+    }
+    /*
+    @DeleteMapping("/delete/{id}")
+    ResponseEntity<Void> deleteCandidateById(@PathVariable Long id){
+        candidateService,deleteCandidateById(id);
+        return  ResponseEntity.noContent().build();
+    }*/
 
+
+    /* @DeleteMapping("/delete/{id}")
+     ResponseEntity<Void> deleteSelectionById(@PathVariable Long id){
+         System.out.println("Deleting Selection Process with ID: " + id);
+         selectionService.deleteSelectionById(id);
+         return ResponseEntity.noContent().build();
+     }    */
+    @PutMapping("/edit")
+    public ResponseEntity<Candidate> editCandidate(@RequestBody Candidate candidate){
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/candidate/save").toUriString());
+        return ResponseEntity.created(uri).body(candidateService.saveCandidate(candidate));
     }
 }
 
