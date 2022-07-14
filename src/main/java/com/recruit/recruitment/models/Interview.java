@@ -1,5 +1,9 @@
 package com.recruit.recruitment.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -14,18 +18,22 @@ public class Interview
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     private Candidate candidate;
 
     @ManyToOne
+    @JsonBackReference
     private AppUser interviewer;
 
     @OneToOne
+    //@JsonIgnoreProperties({"interviews"})
+    @JsonBackReference
     private Selection selection;
 
-    @NotBlank
+
     private String feedback;
 
-    @NotBlank
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date interview_date, creation_date;
 
     public Interview(){}
@@ -36,6 +44,27 @@ public class Interview
         this.creation_date = creation_date;
         this.feedback = "";
     }
+
+    public Interview(Candidate candidate, AppUser interviewer, Selection selection, String feedback, Date interview_date, Date creation_date) {
+        this.candidate = candidate;
+        this.interviewer = interviewer;
+        this.selection = selection;
+        this.feedback = feedback;
+        this.interview_date = interview_date;
+        this.creation_date = creation_date;
+    }
+
+    /*
+    public Interview(Candidate candidate, AppUser interviewer, Selection selection, String feedback, Date interview_date) {
+        this.candidate = candidate;
+        this.interviewer = interviewer;
+        this.selection = selection;
+        this.feedback = feedback;
+        this.interview_date = interview_date;
+        this.creation_date = new Date();
+    }
+
+     */
 
     public Long getId() {
         return id;

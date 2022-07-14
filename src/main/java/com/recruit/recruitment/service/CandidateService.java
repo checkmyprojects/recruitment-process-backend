@@ -9,4 +9,5 @@ public interface CandidateService {
     List<Candidate> listAllCandidates ();
     Candidate saveCandidate (Candidate candidate);
     void deleteCandidateById (Long id);
+    Candidate findById(Long id);
 }

@@ -31,4 +31,9 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public void deleteCandidateById(Long id) { candidateRepo.deleteById(id); }
+
+    @Override
+    public Candidate findById(Long id) {
+        return candidateRepo.findById(id).orElseThrow(() -> new RuntimeException("Candidate not found"));
+    }
 }

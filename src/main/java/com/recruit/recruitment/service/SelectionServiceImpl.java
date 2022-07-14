@@ -34,4 +34,9 @@ public class SelectionServiceImpl implements SelectionService{
         selectionRepo.deleteById(id);
 
     }
+
+    @Override
+    public Selection findById(Long id) {
+        return selectionRepo.findById(id).orElseThrow(() -> new RuntimeException("Selection Process not found"));
+    }
 }

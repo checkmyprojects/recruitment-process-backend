@@ -1,6 +1,7 @@
 package com.recruit.recruitment.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -45,6 +46,7 @@ public class AppUser
     private boolean isActive;
 
     @OneToMany(mappedBy = "interviewer")
+    @JsonManagedReference
     private Set<Interview> interviews;
 
     public AppUser(){}
