@@ -1,5 +1,6 @@
 package com.recruit.recruitment.service;
 
+
 import com.recruit.recruitment.models.Selection;
 import com.recruit.recruitment.repository.SelectionRepo;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Date;
+
 
 import static org.mockito.Mockito.verify;
 
@@ -30,11 +31,16 @@ class SelectionServiceImplTest {
 
     @Test
     void listAll() {
-
+        underTest.listAll();
+        verify(selectionRepo).findAll();
     }
 
     @Test
     void save() {
+        Selection selection = new Selection();
+        underTest.save(selection);
+        verify(selectionRepo).save(selection);
+
          }
 
     @Test
