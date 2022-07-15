@@ -46,6 +46,11 @@ public class AppUserServiceImpl implements AppUserService{
         return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not Found"));
     }
 
+    @Override
+    public void deleteById(Long id) {
+        userRepo.deleteById(id);
+    }
+
     public List<AppUser> all()
     {
         return userRepo.findAll();

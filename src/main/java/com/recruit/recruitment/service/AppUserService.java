@@ -11,4 +11,5 @@ public interface AppUserService {
     Boolean existsByEmail(String email);
     AppUser saveUser(AppUser user);
     AppUser findById(Long id);
+    void deleteById(Long id);
 }
