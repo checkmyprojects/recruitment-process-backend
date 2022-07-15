@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "selections")
@@ -42,6 +43,13 @@ public class Selection
 
     private boolean remote;
 
+    @OneToMany(mappedBy = "selection")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @JsonIgnoreProperties({"selection"}) // Remove selection on JSON
+    private Set<Interview> interviews;
+
     public Selection(){}
 
     public Selection(AppUser created_by, Date start_date, Date end_date, String name, String description, String requirements, String location, String sector, String status, String priority, Long project_id, boolean remote)
@@ -58,6 +66,22 @@ public class Selection
         this.priority = priority;
         this.project_id = project_id;
         this.remote = remote;
+    }
+
+    public Selection(AppUser created_by, Date start_date, Date end_date, String name, String description, String requirements, String location, String sector, String status, String priority, Long project_id, boolean remote, Set<Interview> interviews) {
+        this.created_by = created_by;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.name = name;
+        this.description = description;
+        this.requirements = requirements;
+        this.location = location;
+        this.sector = sector;
+        this.status = status;
+        this.priority = priority;
+        this.project_id = project_id;
+        this.remote = remote;
+        this.interviews = interviews;
     }
 
     public Long getId() {
@@ -162,5 +186,13 @@ public class Selection
 
     public void setProject_id(Long project_id) {
         this.project_id = project_id;
+    }
+
+    public Set<Interview> getInterviews() {
+        return interviews;
+    }
+
+    public void setInterviews(Set<Interview> interviews) {
+        this.interviews = interviews;
     }
 }

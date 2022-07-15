@@ -29,11 +29,12 @@ public class Interview
     @JsonIgnoreProperties({"interviews"}) // Remove interviews on JSON
     private AppUser interviewer;
 
-    @OneToOne
+    @ManyToOne
     //@JsonIgnoreProperties({"interviews"})
 //    @JsonIdentityInfo(
 //            generator = ObjectIdGenerators.PropertyGenerator.class,
 //            property = "id")
+    @JsonIgnoreProperties({"interviews"}) // Remove interviews on JSON
     private Selection selection;
 
 
