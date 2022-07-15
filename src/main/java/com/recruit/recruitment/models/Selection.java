@@ -1,6 +1,9 @@
 package com.recruit.recruitment.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +20,10 @@ public class Selection
 
 
     @OneToOne
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @JsonIgnoreProperties({"interviews"}) // Remove interviews on JSON
     private AppUser created_by;
 
     @JsonFormat(pattern="yyyy-MM-dd")

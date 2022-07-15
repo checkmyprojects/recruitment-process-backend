@@ -1,7 +1,6 @@
 package com.recruit.recruitment.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -46,7 +45,10 @@ public class AppUser
     private boolean isActive;
 
     @OneToMany(mappedBy = "interviewer")
-    @JsonManagedReference
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @JsonIgnoreProperties({"interviewer"})//Remove interviewer on JSON
     private Set<Interview> interviews;
 
     public AppUser(){}

@@ -1,8 +1,6 @@
 package com.recruit.recruitment.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -18,16 +16,24 @@ public class Interview
     private Long id;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @JsonIgnoreProperties({"interviews"}) // Remove interviews on JSON
     private Candidate candidate;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
+    @JsonIgnoreProperties({"interviews"}) // Remove interviews on JSON
     private AppUser interviewer;
 
     @OneToOne
     //@JsonIgnoreProperties({"interviews"})
-    @JsonBackReference
+//    @JsonIdentityInfo(
+//            generator = ObjectIdGenerators.PropertyGenerator.class,
+//            property = "id")
     private Selection selection;
 
 

@@ -1,5 +1,8 @@
 package com.recruit.recruitment.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -33,6 +36,9 @@ public class Candidate
     private String state;
 
     @OneToMany(mappedBy = "candidate")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private Set<Interview> interviews;
 
     public Candidate(){}
