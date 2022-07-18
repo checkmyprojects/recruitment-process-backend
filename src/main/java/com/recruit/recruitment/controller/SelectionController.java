@@ -2,6 +2,7 @@ package com.recruit.recruitment.controller;
 
 import com.recruit.recruitment.models.AppUser;
 import com.recruit.recruitment.models.Selection;
+import com.recruit.recruitment.payload.request.PriorityRequest;
 import com.recruit.recruitment.service.AppUserService;
 import com.recruit.recruitment.service.SelectionService;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -97,4 +99,30 @@ public class SelectionController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/done")
+    ResponseEntity<Boolean> done(@RequestBody Long selectionId)
+    {
+        final Selection selection = selectionService.findById(selectionId);
+        if(selection != null)
+        {
+            selection.setEnd_date(new Date(System.currentTimeMillis()));
+            selection.setStatus("done");
+            selectionService.save(selection);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.ok(false);
+    }
+
+    @PostMapping("/priority")
+    ResponseEntity<Boolean> priority(@RequestBody PriorityRequest priorityRequest)
+    {
+        final Selection selection = selectionService.findById(priorityRequest.id);
+        if(selection != null)
+        {
+            selection.setPriority(priorityRequest.priority);
+            selectionService.save(selection);
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.ok(false);
+    }
 }
