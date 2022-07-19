@@ -8,13 +8,15 @@ import com.recruit.recruitment.service.AppUserServiceImpl;
 import com.recruit.recruitment.service.RoleServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/admin/")
+@RequestMapping("/api/admin")
 @RestController
 public class AdminController
 {
@@ -28,14 +30,14 @@ public class AdminController
         this.rservice = rservice;
     }
 
-    @GetMapping("users")
+    @GetMapping("/users")
     //@PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<List<AppUser>> all()
     {
         return ResponseEntity.ok().body(service.all());
     }
 
-    @PostMapping("role")
+    @PostMapping("/role")
     //@PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<Boolean> changeRole(@RequestBody RoleRequest r)
     {
@@ -81,5 +83,13 @@ public class AdminController
     ResponseEntity<AppUser> findById(@PathVariable Long id){
         return ResponseEntity.ok().body(service.findById(id));
     }
-    
+
+    @PutMapping("/edit")
+    public ResponseEntity<AppUser> editUser(@RequestBody AppUser appUser){
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/admin/edit").toUriString());
+       AppUser userToEdit=service.findById(appUser.getId());
+       appUser.setPassword(userToEdit.getPassword());
+        return ResponseEntity.created(uri).body(service.saveUser(appUser));
+    }
+
 }
