@@ -76,4 +76,10 @@ public class AdminController
         service.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/id/{id}")
+    ResponseEntity<AppUser> findById(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.findById(id));
+    }
+    
 }
