@@ -64,7 +64,7 @@ public class InterviewController {
             interview.setCandidate(candidate);
             interview.setSelection(selection);
             interview.setFeedback("");
-            interview.setInterview_date(date);
+            interview.setInterview_date(date);  
             interview.setCreation_date(new Date());
 
             System.out.println("Saving new Interview");
