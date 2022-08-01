@@ -87,9 +87,17 @@ public class AdminController
     @PutMapping("/edit")
     public ResponseEntity<AppUser> editUser(@RequestBody AppUser appUser){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/admin/edit").toUriString());
-       AppUser userToEdit=service.findById(appUser.getId());
-       appUser.setPassword(userToEdit.getPassword());
-        return ResponseEntity.created(uri).body(service.saveUser(appUser));
+        // find DB user and create a temp one to edit it
+        AppUser userToEdit=service.findById(appUser.getId());
+        // appUser.setPassword(userToEdit.getPassword());
+
+        // Change userToEdit data with the data we get from the PUT request
+        userToEdit.setName(appUser.getName());
+        userToEdit.setRoles(appUser.getRoles());
+        userToEdit.setUsername(appUser.getUsername());
+        userToEdit.setEmail(appUser.getEmail());
+
+        return ResponseEntity.created(uri).body(service.saveUser(userToEdit));
     }
 
 }
