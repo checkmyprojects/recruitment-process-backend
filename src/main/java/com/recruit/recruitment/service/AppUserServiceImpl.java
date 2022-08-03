@@ -43,7 +43,9 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public AppUser findById(Long id) {
-        return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not Found"));
+        return userRepo.findById(id).orElse(null);
+//        return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not Found"));
+
     }
 
     public List<AppUser> all()
