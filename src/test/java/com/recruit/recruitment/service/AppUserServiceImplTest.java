@@ -138,7 +138,7 @@ class AppUserServiceImplTest {
                 true
         );
         underTest.saveUser(appUser);
-        underTest.findById(appUser.getId());
-        verify(appUserRepo).findById(appUser.getId());
+        underTest.findById(1L);
+        verify(appUserRepo).findById(1L);
     }
     }
