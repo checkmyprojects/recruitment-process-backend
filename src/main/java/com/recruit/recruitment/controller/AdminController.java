@@ -91,11 +91,35 @@ public class AdminController
         AppUser userToEdit=service.findById(appUser.getId());
         // appUser.setPassword(userToEdit.getPassword());
 
+        // Frontend sends role without proper id #, get role name, and get the role from DB
+        List<Role> editedRoles = new ArrayList<>();
+        appUser.getRoles().forEach(role -> {
+            switch(role.getName().toString())
+            {
+                case "ROLE_ADMIN":
+                    editedRoles.add(rservice.findByName(ERole.ROLE_ADMIN).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+                    break;
+                case "ROLE_BUSINESS":
+                    editedRoles.add(rservice.findByName(ERole.ROLE_BUSINESS).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+                    break;
+                case "ROLE_INTERVIEWER":
+                    editedRoles.add(rservice.findByName(ERole.ROLE_INTERVIEWER).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+                    break;
+                case "ROLE_PEOPLE":
+                    editedRoles.add(rservice.findByName(ERole.ROLE_PEOPLE).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+                    break;
+                default:
+                }
+        });
+
+
         // Change userToEdit data with the data we get from the PUT request
         userToEdit.setName(appUser.getName());
-        userToEdit.setRoles(appUser.getRoles());
+        //userToEdit.setRoles(appUser.getRoles());
         userToEdit.setUsername(appUser.getUsername());
         userToEdit.setEmail(appUser.getEmail());
+        userToEdit.setRoles(new HashSet<>(editedRoles));
+        userToEdit.setActive(appUser.isActive());
 
         return ResponseEntity.created(uri).body(service.saveUser(userToEdit));
     }
