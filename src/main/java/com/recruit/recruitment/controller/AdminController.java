@@ -111,8 +111,6 @@ public class AdminController
                 default:
                 }
         });
-
-
         // Change userToEdit data with the data we get from the PUT request
         userToEdit.setName(appUser.getName());
         //userToEdit.setRoles(appUser.getRoles());
