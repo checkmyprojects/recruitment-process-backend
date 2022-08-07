@@ -65,60 +65,116 @@ public class AuthController {
                 userDetails.getEmail(),
                 roles));
     }
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userService.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
-        }
-        if (userService.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already in use!"));
-        }
-        // Create new user's account
-        AppUser user = new AppUser(signUpRequest.getName(),signUpRequest.getUsername(),
-                signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
-        Set<String> strRoles = signUpRequest.getRole();
-        Set<Role> roles = new HashSet<>();
-        if (strRoles == null) {
-            Role userRole = roleService.findByName(ERole.ROLE_PEOPLE)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleService.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-                        break;
-                    case "business":
-                        Role modRole = roleService.findByName(ERole.ROLE_BUSINESS)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
-                        break;
-                    case "interview":
-                        Role interRole = roleService.findByName(ERole.ROLE_INTERVIEWER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(interRole);
-                        break;
-                    case "people":
-                        Role peopleRole = roleService.findByName(ERole.ROLE_PEOPLE)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(peopleRole);
-                        break;
-                    default:
-                        Role userRole = roleService.findByName(ERole.ROLE_PEOPLE)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
-        }
-        user.setRoles(roles);
-        userService.saveUser(user);
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+//    @PostMapping("/signup")
+//    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+//        if (userService.existsByUsername(signUpRequest.getUsername())) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResponse("Error: Username is already taken!"));
+//        }
+//        if (userService.existsByEmail(signUpRequest.getEmail())) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResponse("Error: Email is already in use!"));
+//        }
+//        // Create new user's account
+//        AppUser user = new AppUser(signUpRequest.getName(),signUpRequest.getUsername(),
+//                signUpRequest.getEmail(),
+//                encoder.encode(signUpRequest.getPassword()));
+//        Set<String> strRoles = signUpRequest.getRole();
+//        Set<Role> roles = new HashSet<>();
+//        if (strRoles == null) {
+//            Role userRole = roleService.findByName(ERole.ROLE_PEOPLE)
+//                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//            roles.add(userRole);
+//        } else {
+//            strRoles.forEach(role -> {
+//                switch (role) {
+//                    case "admin":
+//                        Role adminRole = roleService.findByName(ERole.ROLE_ADMIN)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//                        roles.add(adminRole);
+//                        break;
+//                    case "business":
+//                        Role modRole = roleService.findByName(ERole.ROLE_BUSINESS)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//                        roles.add(modRole);
+//                        break;
+//                    case "interview":
+//                        Role interRole = roleService.findByName(ERole.ROLE_INTERVIEWER)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//                        roles.add(interRole);
+//                        break;
+//                    case "people":
+//                        Role peopleRole = roleService.findByName(ERole.ROLE_PEOPLE)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//                        roles.add(peopleRole);
+//                        break;
+//                    default:
+//                        Role userRole = roleService.findByName(ERole.ROLE_PEOPLE)
+//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//                        roles.add(userRole);
+//                }
+//            });
+//        }
+//        user.setRoles(roles);
+//        userService.saveUser(user);
+//        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+//    }
+@PostMapping("/signup")
+public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    if (userService.existsByUsername(signUpRequest.getUsername())) {
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Error: Username is already taken!"));
     }
+    if (userService.existsByEmail(signUpRequest.getEmail())) {
+        return ResponseEntity
+                .badRequest()
+                .body(new MessageResponse("Error: Email is already in use!"));
+    }
+    // Create new user's account
+    AppUser user = new AppUser(signUpRequest.getName(),signUpRequest.getUsername(),
+            signUpRequest.getEmail(),
+            encoder.encode(signUpRequest.getPassword()));
+    Set<String> strRoles = signUpRequest.getRole();
+    Set<Role> roles = new HashSet<>();
+    if (strRoles == null) {
+        Role userRole = roleService.findByName(ERole.ROLE_PEOPLE)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        roles.add(userRole);
+    } else {
+        strRoles.forEach(role -> {
+            switch (role) {
+                case "admin":
+                    Role adminRole = roleService.findByName(ERole.ROLE_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(adminRole);
+                    break;
+                case "business":
+                    Role modRole = roleService.findByName(ERole.ROLE_BUSINESS)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(modRole);
+                    break;
+                case "interview":
+                    Role interRole = roleService.findByName(ERole.ROLE_INTERVIEWER)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(interRole);
+                    break;
+                case "people":
+                    Role peopleRole = roleService.findByName(ERole.ROLE_PEOPLE)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(peopleRole);
+                    break;
+                default:
+                    Role userRole = roleService.findByName(ERole.ROLE_PEOPLE)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(userRole);
+            }
+        });
+    }
+    user.setRoles(roles);
+    // userService.saveUser(user);
+    return ResponseEntity.ok(userService.saveUser(user));
+}
 }
