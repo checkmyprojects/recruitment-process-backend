@@ -31,12 +31,12 @@ public class CandidateController {
         System.out.println(candidate.getName());
         return ResponseEntity.created(uri).body(candidateService.saveCandidate(candidate));
     }
-    /*
+
     @DeleteMapping("/delete/{id}")
     ResponseEntity<Void> deleteCandidateById(@PathVariable Long id){
-        candidateService,deleteCandidateById(id);
+        candidateService.deleteCandidateById(id);
         return  ResponseEntity.noContent().build();
-    }*/
+    }
 
 
     /* @DeleteMapping("/delete/{id}")
