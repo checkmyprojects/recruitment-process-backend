@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class InterviewController {
     }
 
     @PostMapping("/new")
-    ResponseEntity<String> saveInterview(@RequestBody Date date, @RequestParam (value = "candidateid")Long candidateId, @RequestParam (value = "interviewerid")Long interviewerId, @RequestParam (value = "selectionid")Long selectionId){
+    ResponseEntity<String> saveInterview(@RequestBody LocalDateTime date, @RequestParam (value = "candidateid")Long candidateId, @RequestParam (value = "interviewerid")Long interviewerId, @RequestParam (value = "selectionid")Long selectionId){
         if(candidateId == null || interviewerId == null || selectionId == null){
             return ResponseEntity.badRequest().body("Missing parameters on url");
         }else{
@@ -65,7 +66,7 @@ public class InterviewController {
             interview.setSelection(selection);
             interview.setFeedback("");
             interview.setInterview_date(date);  
-            interview.setCreation_date(new Date());
+            interview.setCreation_date(LocalDateTime.now());
 
             System.out.println("Saving new Interview");
             interviewService.save(interview);
@@ -127,7 +128,7 @@ public class InterviewController {
     }
 
     @PutMapping("/changedate")
-    ResponseEntity<String> changeDate(@RequestBody Date date, @RequestParam (value = "interviewid")Long interviewId){
+    ResponseEntity<String> changeDate(@RequestBody LocalDateTime date, @RequestParam (value = "interviewid")Long interviewId){
         if(interviewId == null){
             System.out.println("Interview with ID: " + interviewId + ", not found");
             return ResponseEntity.badRequest().body("Interview with ID: " + interviewId + ", not found");

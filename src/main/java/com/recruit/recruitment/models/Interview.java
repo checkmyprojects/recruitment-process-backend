@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -40,19 +41,19 @@ public class Interview
 
     private String feedback;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date interview_date, creation_date;
+    @JsonFormat(pattern="yyyy-MM-dd / hh:mm:ss")
+    private LocalDateTime interview_date, creation_date;
 
     public Interview(){}
 
-    public Interview(Date interview_date, Date creation_date)
+    public Interview(LocalDateTime interview_date, LocalDateTime creation_date)
     {
         this.interview_date = interview_date;
         this.creation_date = creation_date;
         this.feedback = "";
     }
 
-    public Interview(Candidate candidate, AppUser interviewer, Selection selection, String feedback, Date interview_date, Date creation_date) {
+    public Interview(Candidate candidate, AppUser interviewer, Selection selection, String feedback, LocalDateTime interview_date, LocalDateTime creation_date) {
         this.candidate = candidate;
         this.interviewer = interviewer;
         this.selection = selection;
@@ -113,19 +114,19 @@ public class Interview
         this.feedback = feedback;
     }
 
-    public Date getInterview_date() {
+    public LocalDateTime getInterview_date() {
         return interview_date;
     }
 
-    public void setInterview_date(Date interview_date) {
+    public void setInterview_date(LocalDateTime interview_date) {
         this.interview_date = interview_date;
     }
 
-    public Date getCreation_date() {
+    public LocalDateTime getCreation_date() {
         return creation_date;
     }
 
-    public void setCreation_date(Date creation_date) {
+    public void setCreation_date(LocalDateTime creation_date) {
         this.creation_date = creation_date;
     }
 }
