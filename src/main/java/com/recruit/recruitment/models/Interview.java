@@ -16,16 +16,16 @@ public class Interview
     private Long id;
 
     @ManyToOne
-    @JsonIdentityInfo(
+    /*@JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
+            property = "id")*/
     @JsonIgnoreProperties({"interviews"}) // Remove interviews on JSON
     private Candidate candidate;
 
     @ManyToOne
-    @JsonIdentityInfo(
+   /* @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "id")
+            property = "id")*/
     @JsonIgnoreProperties({"interviews"}) // Remove interviews on JSON
     private AppUser interviewer;
 
