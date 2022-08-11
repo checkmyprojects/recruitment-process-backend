@@ -34,7 +34,7 @@ public class Selection
     private String name, description, requirements, location, sector;
 
     @NotBlank
-    @Size(max = 10)
+    //@Size(max = 10)
     private String status, priority;
 
 

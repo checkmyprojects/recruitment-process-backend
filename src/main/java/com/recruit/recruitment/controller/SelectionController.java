@@ -2,14 +2,18 @@ package com.recruit.recruitment.controller;
 
 import com.recruit.recruitment.models.AppUser;
 import com.recruit.recruitment.models.Selection;
+import com.recruit.recruitment.payload.response.MessageResponse;
 import com.recruit.recruitment.service.AppUserService;
 import com.recruit.recruitment.service.SelectionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/selection")
@@ -32,6 +36,36 @@ public class SelectionController {
 
 
     @PostMapping("/new")
+    ResponseEntity<?> saveSelection(@RequestBody Selection selection, Authentication authentication){
+        // Ask for frontend authenticated user to make user it got sent. If not, throw error
+        if(authentication == null){
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: User is not logged in"));
+
+        // If we can't find user on the database with authenticated user username, throw error
+        }else if(!appUserService.existsByUsername(authentication.getName())){
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: logged user not found on the database"));
+
+            }else{
+                Optional<AppUser> appUser = appUserService.findByUsername(authentication.getName());
+                // If a appUser is found on the database, create the selection
+                if(appUser.isPresent()){
+                    selection.setCreated_by(appUser.get());
+                    URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/selection/new").toUriString());
+                    System.out.println("Saving New Selection Process");
+                    return ResponseEntity.created(uri).body(selectionService.save(selection));
+
+                // If appUser was not found, throw error
+                }else{
+                    return ResponseEntity.badRequest().body(new MessageResponse("Error: logged user not found on the database"));
+
+                }
+
+        }
+
+    }
+
+    /*
+    @PostMapping("/new")
     ResponseEntity<Selection> saveSelection(@RequestBody Selection selection, @RequestParam (value = "creatorid")Long creatorId){
 
         // If creator is not found on DB, send error
@@ -46,6 +80,7 @@ public class SelectionController {
             return ResponseEntity.created(uri).body(selectionService.save(selection));
         }
     }
+     */
 
     /*
     @PostMapping("/new")
