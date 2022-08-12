@@ -37,7 +37,7 @@ public class SelectionController {
 
     @PostMapping("/new")
     ResponseEntity<?> saveSelection(@RequestBody Selection selection, Authentication authentication){
-        // Ask for frontend authenticated user to make user it got sent. If not, throw error
+        // Ask for frontend authenticated user to make user was sent. If not, throw error
         if(authentication == null){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: User is not logged in"));
 
