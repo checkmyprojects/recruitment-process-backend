@@ -14,6 +14,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/admin")
@@ -35,6 +36,18 @@ public class AdminController
     ResponseEntity<List<AppUser>> all()
     {
         return ResponseEntity.ok().body(service.all());
+    }
+
+    // Return all AppUsers that have ROLE_INTERVIEWER role
+    @GetMapping("/usersInterview")
+    ResponseEntity<?> findAllInterviewers(){
+        Optional<Role> role = rservice.findByName(ERole.ROLE_INTERVIEWER);
+        if(role.isPresent()){
+            return ResponseEntity.ok(service.findAppUserByRoles(role.get()));
+        }else{
+            return ResponseEntity.internalServerError().build();
+        }
+
     }
 
     @PostMapping("/role")

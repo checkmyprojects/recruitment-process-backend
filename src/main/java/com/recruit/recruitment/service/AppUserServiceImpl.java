@@ -1,6 +1,7 @@
 package com.recruit.recruitment.service;
 
 import com.recruit.recruitment.models.AppUser;
+import com.recruit.recruitment.models.Role;
 import com.recruit.recruitment.repository.AppUserRepo;
 import com.recruit.recruitment.repository.RoleRepo;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +50,11 @@ public class AppUserServiceImpl implements AppUserService{
     @Override
     public void deleteById(Long id) {
         userRepo.deleteById(id);
+    }
+
+    @Override
+    public List<AppUser> findAppUserByRoles(Role role) {
+        return userRepo.findAppUserByRoles(role);
     }
 
     public List<AppUser> all()

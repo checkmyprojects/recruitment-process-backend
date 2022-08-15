@@ -49,7 +49,7 @@ public class InterviewController {
     }
 
     @PostMapping("/new")
-    ResponseEntity<String> saveInterview(@RequestBody LocalDateTime date, @RequestParam (value = "candidateid")Long candidateId, @RequestParam (value = "interviewerid")Long interviewerId, @RequestParam (value = "selectionid")Long selectionId){
+    ResponseEntity<String> saveInterview(@RequestBody String date, @RequestParam (value = "candidateid")Long candidateId, @RequestParam (value = "interviewerid")Long interviewerId, @RequestParam (value = "selectionid")Long selectionId){
         if(candidateId == null || interviewerId == null || selectionId == null){
             return ResponseEntity.badRequest().body("Missing parameters on url");
         }else{
@@ -65,7 +65,7 @@ public class InterviewController {
             interview.setCandidate(candidate);
             interview.setSelection(selection);
             interview.setFeedback("");
-            interview.setInterview_date(date);  
+            interview.setInterview_date(LocalDateTime.parse(date));
             interview.setCreation_date(LocalDateTime.now());
 
             System.out.println("Saving new Interview");
