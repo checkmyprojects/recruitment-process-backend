@@ -99,22 +99,52 @@ public class SelectionController {
         }
     }
 */
-
     @PutMapping("/edit")
-    ResponseEntity<Selection> editSelection(@RequestBody Selection selection){
+    ResponseEntity<?> editSelection(@RequestBody Selection selection){
 
-        if(selection.getCreated_by().getId() == null){
-            System.out.println("Error with Selection Process AppUser ID");
-            return ResponseEntity.badRequest().body(selection);
+        if (selection.getId() == null){
+            return ResponseEntity.badRequest().body("Missing selection id");
         }else{
-            AppUser creator = appUserService.findById(selection.getCreated_by().getId());
-            URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/selection/edit").toUriString());
-            System.out.println("Updating selection with ID: " + selection.getId());
-            selection.setCreated_by(creator);
-            return ResponseEntity.created(uri).body(selectionService.save(selection));
+            Selection editedSelection = selectionService.findById(selection.getId());
+            if(editedSelection == null){
+                return ResponseEntity.badRequest().body("Selection process not found");
+            }else{
+                editedSelection.setCreated_by(selection.getCreated_by());
+                editedSelection.setStart_date(selection.getStart_date());
+                editedSelection.setEnd_date(selection.getEnd_date());
+                editedSelection.setName(selection.getName());
+                editedSelection.setDescription(selection.getDescription());
+                editedSelection.setRequirements(selection.getRequirements());
+                editedSelection.setLocation(selection.getLocation());
+                editedSelection.setSector(selection.getSector());
+                editedSelection.setStatus(selection.getStatus());
+                editedSelection.setPriority(selection.getPriority());
+                editedSelection.setProject_id(selection.getProject_id());
+                editedSelection.setRemote(selection.isRemote());
+
+                URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/selection/edit").toUriString());
+                System.out.println("Updating selection with ID: " + selection.getId());
+                return ResponseEntity.created(uri).body(selectionService.save(editedSelection));
+            }
         }
 
     }
+
+//    @PutMapping("/edit")
+//    ResponseEntity<Selection> editSelection(@RequestBody Selection selection){
+//
+//        if(selection.getCreated_by().getId() == null){
+//            System.out.println("Error with Selection Process AppUser ID");
+//            return ResponseEntity.badRequest().body(selection);
+//        }else{
+//            AppUser creator = appUserService.findById(selection.getCreated_by().getId());
+//            URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/selection/edit").toUriString());
+//            System.out.println("Updating selection with ID: " + selection.getId());
+//            selection.setCreated_by(creator);
+//            return ResponseEntity.created(uri).body(selectionService.save(selection));
+//        }
+//
+//    }
     /*
     @PutMapping("/edit")
     ResponseEntity<Selection> editSelection(@RequestBody Selection selection){
