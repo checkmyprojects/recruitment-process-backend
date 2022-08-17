@@ -47,22 +47,15 @@ public class AdminController
             List<Role> roles = new ArrayList<>();
             r.roles.forEach(role ->
             {
-                switch(role)
-                {
-                    case "admin":
-                        roles.add(rservice.findByName(ERole.ROLE_ADMIN).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
-                        break;
-                    case "business":
-                        roles.add(rservice.findByName(ERole.ROLE_BUSINESS).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
-                        break;
-                    case "interview":
-                        roles.add(rservice.findByName(ERole.ROLE_INTERVIEWER).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
-                        break;
-                    case "people":
-                        roles.add(rservice.findByName(ERole.ROLE_PEOPLE).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
-                        break;
-                    default:
-                        roles.add(rservice.findByName(ERole.ROLE_PEOPLE).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+                switch (role) {
+                    case "admin" ->
+                            roles.add(rservice.findByName(ERole.ROLE_ADMIN).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+                    case "business" ->
+                            roles.add(rservice.findByName(ERole.ROLE_BUSINESS).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+                    case "interview" ->
+                            roles.add(rservice.findByName(ERole.ROLE_INTERVIEWER).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
+                    default ->
+                            roles.add(rservice.findByName(ERole.ROLE_PEOPLE).orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
                 }
             });
             user.setRoles(new HashSet<>(roles));
