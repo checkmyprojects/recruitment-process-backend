@@ -84,6 +84,23 @@ public class Selection
         this.interviews = interviews;
     }
 
+    public Selection(Long id, AppUser created_by, Date start_date, Date end_date, String name, String description, String requirements, String location, String sector, String status, String priority, Long project_id, boolean remote, Set<Interview> interviews) {
+        this.id = id;
+        this.created_by = created_by;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.name = name;
+        this.description = description;
+        this.requirements = requirements;
+        this.location = location;
+        this.sector = sector;
+        this.status = status;
+        this.priority = priority;
+        this.project_id = project_id;
+        this.remote = remote;
+        this.interviews = interviews;
+    }
+
     public Long getId() {
         return id;
     }
