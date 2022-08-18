@@ -4,10 +4,12 @@ import com.recruit.recruitment.models.AppUser;
 import com.recruit.recruitment.models.Candidate;
 import com.recruit.recruitment.models.Interview;
 import com.recruit.recruitment.models.Selection;
+import com.recruit.recruitment.security.MailSender;
 import com.recruit.recruitment.service.AppUserService;
 import com.recruit.recruitment.service.CandidateService;
 import com.recruit.recruitment.service.InterviewService;
 import com.recruit.recruitment.service.SelectionService;
+import javax.mail.MessagingException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -67,10 +69,15 @@ public class InterviewController {
             interview.setFeedback("");
             interview.setInterview_date(LocalDateTime.parse(date));
             interview.setCreation_date(LocalDateTime.now());
-
             System.out.println("Saving new Interview");
             interviewService.save(interview);
-            // Should send email to candidate on create
+            try {
+                MailSender.send(candidate.getEmail(), interview.getSelection().getName(), candidate.getName(), interviewer.getName(), interviewer.getEmail(), interview.getInterview_date().toString(), interview.getSelection().getLocation(), interview.getSelection().isRemote(), interview.getSelection().getDescription());
+            } catch (MessagingException e)
+            {
+                System.out.println(e.getMessage());
+                return ResponseEntity.badRequest().body("The email couldn't be sent");
+            }
             return ResponseEntity.created(uri).body("New interview scheduled on: " + date);
         }
     }
