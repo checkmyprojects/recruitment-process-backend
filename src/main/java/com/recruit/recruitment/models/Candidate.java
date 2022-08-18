@@ -35,6 +35,9 @@ public class Candidate
 
     private String state;
 
+    @Lob
+    private String notes;
+
     @OneToMany(mappedBy = "candidate")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -54,6 +57,34 @@ public class Candidate
         this.experience = experience;
         this.hired = false;
         this.state = state;
+    }
+
+    public Candidate(String name, String surname, String email, String skills, String studies, String location, long experience, boolean hired, String state, String notes) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.skills = skills;
+        this.studies = studies;
+        this.location = location;
+        this.experience = experience;
+        this.hired = hired;
+        this.state = state;
+        this.notes = notes;
+    }
+
+    public Candidate(Long id, String name, String surname, String email, String skills, String studies, String location, long experience, boolean hired, String state, String notes, Set<Interview> interviews) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.skills = skills;
+        this.studies = studies;
+        this.location = location;
+        this.experience = experience;
+        this.hired = hired;
+        this.state = state;
+        this.notes = notes;
+        this.interviews = interviews;
     }
 
     public Long getId() {
@@ -142,5 +173,13 @@ public class Candidate
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }
