@@ -17,6 +17,7 @@ import com.recruit.recruitment.security.jwt.JwtUtils;
 import com.recruit.recruitment.service.AppUserService;
 import com.recruit.recruitment.service.RoleService;
 import com.recruit.recruitment.service.UserDetailsImpl;
+import com.recruit.recruitment.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,6 +35,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+    @Autowired
+    UserDetailsServiceImpl uservice;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -56,6 +59,8 @@ public class AuthController {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        if(!((AppUser)uservice.loadUserByUsername(loginRequest.getUsername())).isActive())
+            return ResponseEntity.badRequest().body("El usuario no está activado");
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
