@@ -53,6 +53,7 @@ class SelectionControllerTest {
     Selection selection;
     Selection selection2;
     Selection selection3;
+    Selection selectionWithoutId;
     List<Selection> selectionList = new ArrayList<>();
 
     @BeforeEach
@@ -60,6 +61,7 @@ class SelectionControllerTest {
         selection = new Selection(1L, null, new Date(), new Date(), "Name", "Description", "Req", "Location", "Sector", "Status", "Priority", 1231231L, true, null);
         selection2 = new Selection(2L, null, new Date(), new Date(), "Name", "Description", "Req", "Location", "Sector", "Status", "Priority", 1231231L, true, null);
         selection3 = new Selection(3L, null, new Date(), new Date(), "Name", "Description", "Req", "Location", "Sector", "Status", "Priority", 1231231L, true, null);
+        selectionWithoutId = new Selection(null, new Date(), new Date(), "Name", "Description", "Req", "Location", "Sector", "Status", "Priority", 1231231L, true, null);
         selectionList.add(selection);
         selectionList.add(selection2);
         selectionList.add(selection3);
@@ -98,10 +100,36 @@ class SelectionControllerTest {
     }
 
     @Test
-    void editSelection() {
+    void editSelectionWithoutSendingIdShouldFail() throws Exception {
+        mockMvc.perform((MockMvcRequestBuilders.put("/api/selection/edit")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(selectionWithoutId))))
+                .andExpect(status().isBadRequest());
+
+        verify(selectionService, times(0)).findById(anyLong());
+        verify(selectionService, times(0)).save(any());
     }
 
     @Test
-    void deleteSelectionById() {
+    void editSelection() throws Exception {
+        when(selectionService.findById(selection.getId())).thenReturn(selection);
+        mockMvc.perform((MockMvcRequestBuilders.put("/api/selection/edit")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(selection))))
+                .andDo(MockMvcResultHandlers.print());
+        verify(selectionService).findById(selection.getId());
+        verify(selectionService, times(1)).findById(selection.getId());
+        verify(selectionService).save(selection);
+        verify(selectionService, times(1)).save(selection);
+    }
+
+    @Test
+    void deleteSelectionById() throws Exception {
+        mockMvc.perform((MockMvcRequestBuilders.delete("/api/selection/delete/"+selection.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(selection.getId()))))
+                .andDo(MockMvcResultHandlers.print());
+        verify(selectionService).deleteSelectionById(selection.getId());
+        verify(selectionService, times(1)).deleteSelectionById(selection.getId());
     }
 }
