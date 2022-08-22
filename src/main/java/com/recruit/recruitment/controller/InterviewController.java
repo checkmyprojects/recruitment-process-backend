@@ -113,10 +113,40 @@ public class InterviewController {
     }
      */
 
-    @PutMapping("/edit")
-    ResponseEntity<Interview> editInterview(@RequestBody Interview interview){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/interview/edit").toUriString());
-        return ResponseEntity.created(uri).body(interviewService.save(interview));
+//    @PutMapping("/edit")
+//    ResponseEntity<Interview> editInterview(@RequestBody Interview interview){
+//        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/interview/edit").toUriString());
+//        return ResponseEntity.created(uri).body(interviewService.save(interview));
+//    }
+
+    @PutMapping("/edit/{interviewId}")
+    ResponseEntity<?> editInterview(@RequestBody String date, @PathVariable Long interviewId, @RequestParam (value = "candidateid")Long candidateId, @RequestParam (value = "interviewerid")Long interviewerId, @RequestParam (value = "selectionid")Long selectionId){
+        if(candidateId == null || interviewerId == null || selectionId == null){
+            return ResponseEntity.badRequest().body("Missing parameters on url");
+        }else{
+            URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/interview/new").toUriString());
+            System.out.println("Interviewer ID: " + interviewerId + ", Selection ID: " + selectionId + ", Candidate ID: " + candidateId);
+
+            AppUser interviewer = appUserService.findById(interviewerId);
+            Selection selection = selectionService.findById(selectionId);
+            Candidate candidate = candidateService.findById(candidateId);
+
+            Interview interview = interviewService.findById(interviewId);
+            interview.setInterviewer(interviewer);
+            interview.setCandidate(candidate);
+            interview.setSelection(selection);
+            interview.setInterview_date(LocalDateTime.parse(date));
+            System.out.println("Saving edited Interview");
+            interviewService.save(interview);
+//            try {
+//                MailSender.send(candidate.getEmail(), interview.getSelection().getName(), candidate.getName(), interviewer.getName(), interviewer.getEmail(), interview.getInterview_date().toString(), interview.getSelection().getLocation(), interview.getSelection().isRemote(), interview.getSelection().getDescription());
+//            } catch (MessagingException e)
+//            {
+//                System.out.println(e.getMessage());
+//                return ResponseEntity.badRequest().body("The email couldn't be sent");
+//            }
+            return ResponseEntity.created(uri).body(interview);
+        }
     }
 
     @PutMapping("/feedback/{interviewId}")
