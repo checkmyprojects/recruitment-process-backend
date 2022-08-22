@@ -41,7 +41,8 @@ public class Interview
 
     private String feedback;
 
-    @JsonFormat(pattern="yyyy-MM-dd / hh:mm:ss")
+    // HH:mm:ss is used for 24h time. doing hh:mm:ss will make it return in 12h format but without sending am/pm information
+    @JsonFormat(pattern="yyyy-MM-dd / HH:mm:ss")
     private LocalDateTime interview_date, creation_date;
 
     public Interview(){}

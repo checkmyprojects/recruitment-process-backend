@@ -124,6 +124,19 @@ class SelectionControllerTest {
     }
 
     @Test
+    void endSelectionById() throws Exception {
+        when(selectionService.findById(selection.getId())).thenReturn(selection);
+        mockMvc.perform((MockMvcRequestBuilders.get("/api/selection/end/"+selection.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(selection))))
+                .andDo(MockMvcResultHandlers.print());
+        verify(selectionService).findById(selection.getId());
+        verify(selectionService, times(1)).findById(selection.getId());
+        verify(selectionService).save(selection);
+        verify(selectionService, times(1)).save(selection);
+    }
+
+    @Test
     void deleteSelectionById() throws Exception {
         mockMvc.perform((MockMvcRequestBuilders.delete("/api/selection/delete/"+selection.getId())
                         .contentType(MediaType.APPLICATION_JSON)

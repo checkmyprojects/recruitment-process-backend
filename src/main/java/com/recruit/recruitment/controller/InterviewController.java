@@ -51,7 +51,7 @@ public class InterviewController {
     }
 
     @PostMapping("/new")
-    ResponseEntity<String> saveInterview(@RequestBody String date, @RequestParam (value = "candidateid")Long candidateId, @RequestParam (value = "interviewerid")Long interviewerId, @RequestParam (value = "selectionid")Long selectionId){
+    ResponseEntity<?> saveInterview(@RequestBody String date, @RequestParam (value = "candidateid")Long candidateId, @RequestParam (value = "interviewerid")Long interviewerId, @RequestParam (value = "selectionid")Long selectionId){
         if(candidateId == null || interviewerId == null || selectionId == null){
             return ResponseEntity.badRequest().body("Missing parameters on url");
         }else{
@@ -70,15 +70,16 @@ public class InterviewController {
             interview.setInterview_date(LocalDateTime.parse(date));
             interview.setCreation_date(LocalDateTime.now());
             System.out.println("Saving new Interview");
-            interviewService.save(interview);
-            try {
-                MailSender.send(candidate.getEmail(), interview.getSelection().getName(), candidate.getName(), interviewer.getName(), interviewer.getEmail(), interview.getInterview_date().toString(), interview.getSelection().getLocation(), interview.getSelection().isRemote(), interview.getSelection().getDescription());
-            } catch (MessagingException e)
-            {
-                System.out.println(e.getMessage());
-                return ResponseEntity.badRequest().body("The email couldn't be sent");
-            }
-            return ResponseEntity.created(uri).body("New interview scheduled on: " + date);
+            //interviewService.save(interview);
+//            try {
+//                MailSender.send(candidate.getEmail(), interview.getSelection().getName(), candidate.getName(), interviewer.getName(), interviewer.getEmail(), interview.getInterview_date().toString(), interview.getSelection().getLocation(), interview.getSelection().isRemote(), interview.getSelection().getDescription());
+//            } catch (MessagingException e)
+//            {
+//                System.out.println(e.getMessage());
+//                return ResponseEntity.badRequest().body("The email couldn't be sent");
+//            }
+            // Return interview so we add it to the frontend table
+            return ResponseEntity.created(uri).body(interviewService.save(interview));
         }
     }
 
@@ -137,7 +138,7 @@ public class InterviewController {
             interview.setSelection(selection);
             interview.setInterview_date(LocalDateTime.parse(date));
             System.out.println("Saving edited Interview");
-            interviewService.save(interview);
+            // interviewService.save(interview);
 //            try {
 //                MailSender.send(candidate.getEmail(), interview.getSelection().getName(), candidate.getName(), interviewer.getName(), interviewer.getEmail(), interview.getInterview_date().toString(), interview.getSelection().getLocation(), interview.getSelection().isRemote(), interview.getSelection().getDescription());
 //            } catch (MessagingException e)
@@ -145,7 +146,7 @@ public class InterviewController {
 //                System.out.println(e.getMessage());
 //                return ResponseEntity.badRequest().body("The email couldn't be sent");
 //            }
-            return ResponseEntity.created(uri).body(interview);
+            return ResponseEntity.created(uri).body(interviewService.save(interview));
         }
     }
 
