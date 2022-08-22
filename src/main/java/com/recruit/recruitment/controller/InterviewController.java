@@ -150,12 +150,17 @@ public class InterviewController {
         }
     }
 
+    // Make @Requestbody not required. If it's not present, textarea on frontend was empty
     @PutMapping("/feedback/{interviewId}")
-    ResponseEntity<Interview> leaveFeedback(@RequestBody String feedback, @PathVariable Long interviewId){
+    ResponseEntity<Interview> leaveFeedback(@RequestBody (required=false) String feedback, @PathVariable Long interviewId){
         if(interviewId == null){
             System.out.println("Interview with ID: " + interviewId + ", not found");
             return ResponseEntity.badRequest().body(new Interview());
         }else{
+            // If feedback is null, it means the textarea on the frontend for was empty, so we remove feedback from the interview ( feedback == "" )
+            if(feedback == null){
+                feedback = "";
+            }
             URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/interview/feedback").toUriString());
             System.out.println("Setting feedback for Interview with ID: " + interviewId);
             Interview interview = interviewService.findById(interviewId);
