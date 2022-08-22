@@ -119,8 +119,8 @@ public class InterviewController {
         return ResponseEntity.created(uri).body(interviewService.save(interview));
     }
 
-    @PutMapping("/feedback")
-    ResponseEntity<Interview> leaveFeedback(@RequestBody String feedback, @RequestParam (value = "interviewid")Long interviewId){
+    @PutMapping("/feedback/{interviewId}")
+    ResponseEntity<Interview> leaveFeedback(@RequestBody String feedback, @PathVariable Long interviewId){
         if(interviewId == null){
             System.out.println("Interview with ID: " + interviewId + ", not found");
             return ResponseEntity.badRequest().body(new Interview());
