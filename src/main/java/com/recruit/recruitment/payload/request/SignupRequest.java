@@ -1,10 +1,15 @@
 package com.recruit.recruitment.payload.request;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class SignupRequest {
     @NotBlank
     @Size(min = 3, max = 20)
