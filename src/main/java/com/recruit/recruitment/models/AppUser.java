@@ -51,7 +51,7 @@ public class AppUser
     @JsonIgnoreProperties({"interviewer"})//Remove interviewer on JSON
     private Set<Interview> interviews;
 
-    public AppUser(){}
+    public AppUser(long l, String user, String s, String s1, String password, boolean b){}
 
     public AppUser(String name, String username, String email, String password)
     {
