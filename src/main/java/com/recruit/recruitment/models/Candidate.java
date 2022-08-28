@@ -26,7 +26,7 @@ public class Candidate
     @Email
     private String email;
 
-    @NotBlank
+
     private String skills, studies, location;
 
     private long experience;
