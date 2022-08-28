@@ -35,6 +35,16 @@ public class Candidate
 
     private String state;
 
+    private String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Lob
     private String notes;
 
@@ -70,6 +80,36 @@ public class Candidate
         this.hired = hired;
         this.state = state;
         this.notes = notes;
+    }
+
+    public Candidate(String name, String surname, String email, String skills, String studies, String location, long experience, boolean hired, String state, String phone, String notes) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.skills = skills;
+        this.studies = studies;
+        this.location = location;
+        this.experience = experience;
+        this.hired = hired;
+        this.state = state;
+        this.phone = phone;
+        this.notes = notes;
+    }
+
+    public Candidate(Long id, String name, String surname, String email, String skills, String studies, String location, long experience, boolean hired, String state, String phone, String notes, Set<Interview> interviews) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.skills = skills;
+        this.studies = studies;
+        this.location = location;
+        this.experience = experience;
+        this.hired = hired;
+        this.state = state;
+        this.phone = phone;
+        this.notes = notes;
+        this.interviews = interviews;
     }
 
     public Candidate(Long id, String name, String surname, String email, String skills, String studies, String location, long experience, boolean hired, String state, String notes, Set<Interview> interviews) {
