@@ -333,7 +333,7 @@ Returns:
 },
 ```
 ### New Candidate
-```GET: /candidate/new```
+```POST: /candidate/new```
 ```json
 {
   "id": 107,
@@ -418,185 +418,162 @@ Returns:
       },
 ]
 ```
-### Return food by category
-```GET: /food/filter/{categoryName}```
+### Create Selection Process
+```POST: /selection/new?creatorid=14```
 
-(/food/filter/drink)
 ```json
 [
-    {
-        "id": 16,
-        "name": "Coca Cola",
-        "type": "drink",
-        "ingredients": "Cola",
-        "vegan": false,
-        "alergies": "none",
-        "price": 2.0,
-        "img": "assets/img/product/drink-cocacola.png"
-    },
-    {
-        "id": 17,
-        "name": "Fanta Naranja",
-        "type": "drink",
-        "ingredients": "Fanta",
-        "vegan": false,
-        "alergies": "none",
-        "price": 2.0,
-        "img": "assets/img/product/drink-fanta-orange.png"
-    }
+  {
+    "start_date": "2022-11-15",
+    "name": "Java Spring Boot",
+    "description": "Senior Java Team manager",
+    "requirements": "Java, Spring Boot",
+    "location": "Sevilla",
+    "sector": "Health",
+    "status": "Active",
+    "priority": "High",
+    "project_id": 123123123,
+    "remote": false
+  }
 ]
 ```
-### Add new food
-```POST: /food/save```
+### Delete Selection Process
+```DELETE: selection/delete/{id}```
 ```json
 {
-        "name": "Classic grilled sandwich",
-        "type": "sandwich",
-        "ingredients": "Ham, tomato",
-        "vegan": false,
-        "alergies": "none",
-        "price": 5.0,
-        "img": "assets/img/product/sandwich-classic-grilled.png"
+  "start_date": "2022-09-12",
+  "name": "Java Spring Boot",
+  "description": "Senior Java Team manager",
+  "requirements": "Java, Spring Boot",
+  "location": "Sevilla",
+  "sector": "Health",
+  "status": "Active",
+  "priority": "High",
+  "project_id": 123123123,
+  "remote": false
 }
 ```
 Returns:
 ```json
-{
-        "name": "Classic grilled sandwich",
-        "type": "sandwich",
-        "ingredients": "Ham, tomato",
-        "vegan": false,
-        "alergies": "none",
-        "price": 5.0,
-        "img": "assets/img/product/sandwich-classic-grilled.png"
-}
+{}
 ```
 ### Edit food
-```PUT: /food/edit```
+```GET: /selection/list```
 ```json
 {
-        "id": 30,
-        "name": "Classic grilled sandwich 2",
-        "type": "sandwich",
-        "ingredients": "Ham, tomato",
-        "vegan": false,
-        "alergies": "none",
-        "price": 5.0,
-        "img": "assets/img/product/sandwich-classic-grilled.png"
-}
+  "id": 5,
+  "created_by": {
+    "id": 1,
+    "name": "usuario",
+    "username": "user",
+    "email": "user@mail.com",
+    "roles": [
+      {
+        "id": 3,
+        "name": "ROLE_ADMIN"
+      }
+    ],
+    "active": true
+  },
+  "start_date": "2022-09-12",
+  "end_date": null,
+  "name": "Java Spring Boot",
+  "description": "Senior Java Team manager",
+  "requirements": "Java, Spring Boot",
+  "location": "Sevilla",
+  "sector": "Health",
+  "status": "Active",
+  "priority": "High",
+  "project_id": 123123123,
+  "remote": false,
+  "interviews": [
+    {
+      "id": 17,
+      "candidate": {
+        "id": 1,
+        "name": "Francisco",
+        "surname": "Domínguez",
+        "email": "frando@mail.com",
+        "skills": "Angular, Typescript, Java",
+        "studies": "F.P.",
+        "location": "Sevilla",
+        "experience": 1,
+        "hired": false,
+        "state": null,
+        "phone": null,
+        "notes": null
+      },
+      "interviewer": {
+        "id": 1,
+        "name": "usuario",
+        "username": "user",
+        "email": "user@mail.com",
+        "roles": [
+          {
+            "id": 3,
+            "name": "ROLE_ADMIN"
+          }
+        ],
+        "active": true
+      },
+      "status": null,
+      "feedback": "",
+      "interview_date": "2022-08-31 / 10:10:03",
+      "creation_date": "2022-08-14 / 22:14:12"
+    },
 ```
-Returns:
-```json
-{
-        "id": 30,
-        "name": "Classic grilled sandwich 2",
-        "type": "sandwich",
-        "ingredients": "Ham, tomato",
-        "vegan": false,
-        "alergies": "none",
-        "price": 5.0,
-        "img": "assets/img/product/sandwich-classic-grilled.png"
-}
-```
-### Delete food by id
-```DELETE: /food/delete/{id}```
-
-(/food/delete/3)
-
-
-
-## Orders
-### Return all orders
-```GET: /orders```
+### Find interview by ID
+```GET: /selection/list?30```
 ```json
 [
-    {
-        "id": 29,
-        "quantity": 1,
-        "uuid": "cc57007c-2c43-4b8c-a711-1e6fba2b1200",
-        "food": {
-            "id": 16,
-            "name": "Coca Cola",
-            "type": "drink",
-            "ingredients": "Cola",
-            "vegan": false,
-            "alergies": "none",
-            "price": 2.0,
-            "img": "assets/img/product/drink-cocacola.png"
-        }
+  {
+    "id": 30,
+    "candidate": {
+      "id": 57,
+      "name": "Aldrich",
+      "surname": "Battelle",
+      "email": "abattelle1k@altervista.org",
+      "skills": "Greenlamd",
+      "studies": "Automation Specialist II",
+      "location": "Stockholm",
+      "experience": 5,
+      "hired": true,
+      "state": "activo",
+      "phone": null,
+      "notes": null
     },
-    {
-        "id": 30,
-        "quantity": 1,
-        "uuid": "cc57007c-2c43-4b8c-a711-1e6fba2b1200",
-        "food": {
-            "id": 14,
-            "name": "Double Burger",
-            "type": "burger",
-            "ingredients": "Double burger",
-            "vegan": false,
-            "alergies": "none",
-            "price": 30.0,
-            "img": "assets/img/product/burger-doubleburger.png"
+    "interviewer": {
+      "id": 1,
+      "name": "usuario",
+      "username": "user",
+      "email": "user@mail.com",
+      "roles": [
+        {
+          "id": 3,
+          "name": "ROLE_ADMIN"
         }
-    }
+      ],
+      "active": true
+    },
+    "status": null,
+    "feedback": "",
+    "interview_date": "2022-08-18 / 11:44:40",
+    "creation_date": "2022-08-18 / 11:44:42"
+  },
 ]
 ```
-### Return user with id {id} orders list
-```GET: /orders/{id}```
+### New interview
+```POST: /interview/new```
 ```json
 [
-    {
-        "id": 29,
-        "quantity": 1,
-        "uuid": "cc57007c-2c43-4b8c-a711-1e6fba2b1200",
-        "food": {
-            "id": 16,
-            "name": "Coca Cola",
-            "type": "drink",
-            "ingredients": "Cola",
-            "vegan": false,
-            "alergies": "none",
-            "price": 2.0,
-            "img": "assets/img/product/drink-cocacola.png"
-        }
-    },
-    {
-        "id": 30,
-        "quantity": 1,
-        "uuid": "cc57007c-2c43-4b8c-a711-1e6fba2b1200",
-        "food": {
-            "id": 14,
-            "name": "Double Burger",
-            "type": "burger",
-            "ingredients": "Double burger",
-            "vegan": false,
-            "alergies": "none",
-            "price": 30.0,
-            "img": "assets/img/product/burger-doubleburger.png"
-        }
-    }
+   
 ]
 ```
-### Create orders for authenticated user (send item with quantity when doing checkout)
-Can send a list of quantity + food and all of them will have the same unique uuid to know that they come from the same checkout.
 
-```POST: /orders/checkout```
+```POST: /interview/delete/5```
 ```json
 [
-    {
-        "quantity": 2,
-        "food": {
-            "id": 14,
-            "name": "Double Burger",
-            "type": "burger",
-            "ingredients": "Double burger",
-            "vegan": false,
-            "alergies": "none",
-            "price": 30.0,
-            "img": "assets/img/product/burger-doubleburger.png"
-        }
-    }
+   
 ]
 ```
 
