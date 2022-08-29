@@ -71,8 +71,10 @@ We are a group of enthusiastic coders excited about web developers. In our lates
 # API Documentation
 
 ### Base Path: /api
-## Users
-### Return a list of users with roles and orders
+
+<details>
+  <summary>Return a list of users with roles</summary>
+
 ```GET: /admin/users```
 ```json
 [
@@ -171,6 +173,11 @@ We are a group of enthusiastic coders excited about web developers. In our lates
   
 ]
 ```
+</details>
+
+<details>
+  <summary>Return a list of users with roles</summary>
+
 ### Return a user by {id} with roles and orders
 ```GET: /admin/users/{id}```
 ```json
@@ -211,7 +218,10 @@ We are a group of enthusiastic coders excited about web developers. In our lates
   "creation_date": "2022-08-18 / 11:15:18"
 },
 }
+]
 ```
+</details>
+
 ### Return the authed user username
 ```GET: /admin/users/whoami```
 ```json
