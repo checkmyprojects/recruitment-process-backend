@@ -18,13 +18,23 @@ https://github.com/checkmyprojects/recruitment-process-backend
 
 <h3 align="left">Technologies 🛠️:</h3>
 <p align="left">
-<a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/><span>Java</span> </a><a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="40" height="40"/> <span>Spring Boot</span></a>
-    <a href="https://jwt.io/" target="_blank" rel="noreferrer"> <img src="https://jwt.io/img/pic_logo.svg" alt="mysql" width="40" height="40"/> <span>JWT</span></a><a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> <span>MySQL</span></a>
+<a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/><span>Java</span> </a>
+<a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="40" height="40"/> <span>Spring Boot</span></a>
+<a href="#" target="_blank" rel="noreferrer"> <img src="https://huongdanjava.com/wp-content/uploads/2021/05/spring-security-logo.png" alt="java" width="70" height="40"/><span>Spring Security</span> </a>
+
+<a href="https://jwt.io/" target="_blank" rel="noreferrer"> <img src="https://jwt.io/img/pic_logo.svg" alt="mysql" width="40" height="40"/> <span>JWT</span></a>
+<a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> <span>MySQL</span></a>
+<a href="#" target="_blank" rel="noreferrer"> <img src="https://cleventy.com/wp-content/uploads/2020/05/javamail.png" alt="javax.mail" width="40" height="40"/><span>javax.mail</span> </a>
+
+
 </p>
 
-With Springboot to power our fullstack application, we made a responsive website to manage selection processes.
+- With **Springboot** to power our fullstack application, we made a responsive website to manage selection processes.
+- **javax.mail** facilita el envío y recepción de e-mail desde código java a través de protocolos SMTP, POP3 y IMAP.
+- **Local secondary index (LSI)** allows us to perform a query on a single Hash-Key using several different attributes to "filter" or restrict the query.
 
 Our goal is to facilitate the hiring process of the HR department, bringing together all the roles in a single app.
+
 
 
 ---
