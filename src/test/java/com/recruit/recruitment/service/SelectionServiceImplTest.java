@@ -30,12 +30,17 @@ class SelectionServiceImplTest {
 
     @Test
     void listAll() {
-
+        underTest.listAll();
+        verify(selectionRepo).findAll();
     }
 
     @Test
     void save() {
-         }
+        Selection selection = new Selection();
+        underTest.save(selection);
+        verify(selectionRepo).save(selection);
+
+    }
 
     @Test
     void deleteSelectionById() {
@@ -43,5 +48,11 @@ class SelectionServiceImplTest {
         underTest.deleteSelectionById(1L);
         verify(selectionRepo).deleteById(1L);
 
+    }
+
+    @Test
+    void findById() {
+        underTest.findById(1L);
+        verify(selectionRepo).findById(1L);
     }
 }

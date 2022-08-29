@@ -41,4 +41,10 @@ class CandidateServiceImplTest {
         underTest.deleteCandidateById(1L);
         verify(candidateRepo).deleteById(1L);
     }
+
+    @Test
+    void findById() {
+        underTest.findById(2L);
+        verify(candidateRepo).findById(2L);
+    }
 }
