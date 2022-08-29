@@ -9,7 +9,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Date;
+import java.util.Optional;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 
@@ -52,7 +54,9 @@ class SelectionServiceImplTest {
 
     @Test
     void findById() {
-        underTest.findById(1L);
-        verify(selectionRepo).findById(1L);
+        Selection selection = new Selection();
+        given(selectionRepo.findById(selection.getId())).willReturn(Optional.of(selection));
+        underTest.findById(selection.getId());
+        verify(selectionRepo).findById(selection.getId());
     }
 }

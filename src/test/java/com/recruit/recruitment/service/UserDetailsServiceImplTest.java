@@ -49,7 +49,6 @@ class UserDetailsServiceImplTest {
                 true
         );
         given(appUserRepo.findAppUserByUsername("user")).willReturn(Optional.of(appUser));
-
         underTest.findByUsername("user");
         verify(appUserRepo).findAppUserByUsername("user");
 

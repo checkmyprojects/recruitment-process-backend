@@ -94,6 +94,7 @@ class AppUserServiceImplTest {
                 "password",
                 true
         );
+        given(appUserRepo.findById(appUser.getId())).willReturn(Optional.of(appUser));
         underTest.findById(appUser.getId());
         verify(appUserRepo).findById(appUser.getId());
 
