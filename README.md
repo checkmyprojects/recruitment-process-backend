@@ -30,7 +30,7 @@ Our goal is to facilitate the hiring process of the HR department, bringing toge
 ---
 
 
-## Team
+## :checkered_flag: Team
 
 
 Hi there!
