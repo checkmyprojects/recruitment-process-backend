@@ -12,11 +12,11 @@ Here you can add, edit or delete candidates, interviewers, interviews, processes
 #### :arrow_right: FrontEnd:
 https://github.com/checkmyprojects/recruitment-process-frontend
 
-#### :arrow_left: Backend:
+#### :arrow_left: Backend:
 https://github.com/checkmyprojects/recruitment-process-backend
 ## :wrench: How It's Made:
 
-<h3 align="left">Technologies 🛠️:</h3>
+### :space_invader: Technologies
 <p align="left">
 <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/><span>Java</span> </a>
 <a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="40" height="40"/> <span>Spring Boot</span></a>
@@ -30,7 +30,7 @@ https://github.com/checkmyprojects/recruitment-process-backend
 </p>
 
 - With **Springboot** to power our fullstack application, we made a responsive website to manage selection processes.
-- **javax.mail** facilita el envío y recepción de e-mail desde código java a través de protocolos SMTP, POP3 y IMAP.
+- **javax.mail** facilitates sending and receiving e-mail from java code through SMTP, POP3 and IMAP protocols.
 - **Local secondary index (LSI)** allows us to perform a query on a single Hash-Key using several different attributes to "filter" or restrict the query.
 
 Our goal is to facilitate the hiring process of the HR department, bringing together all the roles in a single app.
@@ -40,7 +40,7 @@ Our goal is to facilitate the hiring process of the HR department, bringing toge
 ---
 
 
-## :checkered_flag: Team
+### :checkered_flag: Team
 
 
 Hi there!
@@ -73,7 +73,7 @@ We are a group of enthusiastic coders excited about web developers. In our lates
 ### Base Path: /api
 ## Users
 ### Return a list of users with roles and orders
-```GET: /users```
+```GET: /admin/users```
 ```json
 [
 
@@ -172,60 +172,73 @@ We are a group of enthusiastic coders excited about web developers. In our lates
 ]
 ```
 ### Return a user by {id} with roles and orders
-```GET: /users/{id}```
+```GET: /admin/users/{id}```
 ```json
 {
-    "id": 1,
-    "name": "A registered user",
-    "address": "My address",
-    "username": "user@mail.com",
-    "phone": "123321123",
-    "password": "$2y$13$pvhCrATlcVzhRDl0KlgdZ.cHZQTsOK9Ig3kF/AmtXxjQ4eC90m32s",
-    "roles": [
-        {
-            "id": 2,
-            "name": "ROLE_ADMIN"
-        }
-    ],
-    "order": [
-        {
-            "id": 29,
-            "quantity": 1,
-            "uuid": "cc57007c-2c43-4b8c-a711-1e6fba2b1200",
-            "food": {
-                "id": 16,
-                "name": "Coca Cola",
-                "type": "drink",
-                "ingredients": "Cola",
-                "vegan": false,
-                "alergies": "none",
-                "price": 2.0,
-                "img": "assets/img/product/drink-cocacola.png"
-            }
-        }
-    ]
+  "id": 29,
+  "candidate": {
+    "id": 57,
+    "name": "Aldrich",
+    "surname": "Battelle",
+    "email": "abattelle1k@altervista.org",
+    "skills": "Greenlamd",
+    "studies": "Automation Specialist II",
+    "location": "Stockholm",
+    "experience": 5,
+    "hired": true,
+    "state": "activo",
+    "phone": null,
+    "notes": null
+  },
+  "selection": {
+    "id": 5,
+    "created_by": 1,
+    "start_date": "2022-09-12",
+    "end_date": null,
+    "name": "Java Spring Boot",
+    "description": "Senior Java Team manager",
+    "requirements": "Java, Spring Boot",
+    "location": "Sevilla",
+    "sector": "Health",
+    "status": "Active",
+    "priority": "High",
+    "project_id": 123123123,
+    "remote": false
+  },
+  "status": null,
+  "feedback": "",
+  "interview_date": "2022-08-18 / 11:15:14",
+  "creation_date": "2022-08-18 / 11:15:18"
+},
 }
 ```
 ### Return the authed user username
-```GET: /users/whoami```
+```GET: /admin/users/whoami```
 ```json
 "test@mail.com"
 ```
 ### Create new user
-```POST: /users/save```
+```POST: /auth/signup```
 
 body: JSON
 ```json
 {
-    "name": "test",
-    "address": "test street",
-    "username": "test@mail.com",
-    "phone": "123321123",
-    "password": "password"
+  "id": 44,
+  "name": "Jesús",
+  "username": "yisus",
+  "email": "admin1@mail.com",
+  "roles": [
+    {
+      "id": 3,
+      "name": "ROLE_ADMIN"
+    }
+  ],
+  "interviews": null,
+  "active": true
 }
 ```
 ### Create new role
-```POST: /role/save```
+```POST: /admin/role/save```
 
 body: JSON
 ```json
@@ -234,7 +247,7 @@ body: JSON
 }
 ```
 ### Add role to user
-```POST: /role/addToUser```
+```POST: /admin/role```
 
 body: JSON
 ```json
@@ -245,81 +258,164 @@ body: JSON
 ```
 
 ### User login returns JWT token
-```POST: /api/login```
+```POST: /auth/signin```
 
-header: x-www-form-urlencoded
+
 ```json
-KEY             VALUE
-________        _____________
-
-username        test@mail.com
-password        password
+{
+  "id": 2,
+  "username": "admin",
+  "email": "admin@mail.com",
+  "roles": [
+    "ROLE_ADMIN"
+  ],
+}
 ```
 
 Returns:
 
 ```json
 {
-    "access_token": "pbkBtcWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4i.eyJzdpbkBtcWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iInJvbGVzIjpbIlJPTEVfQURNSU4i2xvY2FsaG9zdDo4MDgwL2FwaS9sb2dpbiIsImpbkBtcWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfpbkBtcWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4igFyieDP8",
-    "refresh_token": "pbkBtcWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4i.eyJzdpbkBtcWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iInJvbGVzIjpbIlJPTEVfQURNSU4i2xvY2FsaG9zdDo4MDgwL2FwaS9sb2dpbiIsImpbkBtcWlsLmNvbSIsInJvbGVzIjpbIlJPTEV",
-    "roles": "ROLE_ADMIN",
-    "username": "test@mail.com"
+  "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTY2MTc3MzczOCwiZXhwIjoxNjYxODYwMTM4fQ.JUhaPITEW3ObLyyMkkGF9jpgQnxGxJLURVgPqBArK4PcYgeqaZ33LY3vE6qLII-QtCjjfvs0XPM388KhoKDXkw",
+  "tokenType": "Bearer"
 }
 ```
 
-### Refresh user token
-```GET: /token/refresh```
+### List All Candidates
+```GET: /candidate/list```
 
-header: Authorization
 
 ```json
-KEY                 VALUE
-________            __________________________
-Authorization       "Bearer refresh_token_key"
+{
+  "id": 52,
+  "name": "Melissa",
+  "surname": "Wayte",
+  "email": "mwayte1f@dyndns.org",
+  "skills": "Overhold",
+  "studies": "Structural Analysis Engineer",
+  "location": "Caçador",
+  "experience": 16,
+  "hired": true,
+  "state": "",
+  "phone": null,
+  "notes": null,
+  "interviews": []
+},
+{
+"id": 53,
+"name": "Denis",
+"surname": "Elia",
+"email": "delia1g@usda.gov",
+"skills": "Fix San",
+"studies": "Automation Specialist III",
+"location": "Lunao",
+"experience": 30,
+"hired": true,
+"state": "",
+"phone": null,
+"notes": null,
+"interviews": []
+},
+{
+"id": 54,
+"name": "Noach",
+"surname": "Wakenshaw",
+"email": "nwakenshaw1h@tinyurl.com",
+"skills": "Asoka",
+"studies": "Senior Cost Accountant",
+"location": "Rancanyenang",
+"experience": 11,
+"hired": true,
+"state": "",
+"phone": null,
+"notes": null,
+"interviews": []
+},
 ```
-## Food
-### Return all food items
-```GET: /food```
+### New Candidate
+```GET: /candidate/new```
+```json
+{
+  "id": 107,
+  "name": "Samuel",
+  "surname": "Alonso",
+  "email": "alsa@mail.com",
+  "skills": "Angular, Typescript, Java",
+  "studies": "F.P.",
+  "location": "Pamplona",
+  "experience": 1,
+  "hired": false,
+  "state": null,
+  "phone": null,
+  "notes": null,
+  "interviews": null
+}
+```
+### List Selection Process
+```GET: /selection/list```
 ```json
 [
-    [
-    {
-        "id": 4,
-        "name": "Cangreburger",
-        "type": "burger",
-        "ingredients": "Carne de cangrejo",
-        "vegan": false,
-        "alergies": "cangrejo",
-        "price": 15.0,
-        "img": "assets/img/product/burger-cangreburger.png"
+  {
+    "id": 5,
+    "created_by": {
+      "id": 1,
+      "name": "usuario",
+      "username": "user",
+      "email": "user@mail.com",
+      "roles": [
+        {
+          "id": 3,
+          "name": "ROLE_ADMIN"
+        }
+      ],
+      "active": true
     },
-    {
-        "id": 5,
-        "name": "Eggburger",
-        "type": "burger",
-        "ingredients": "egg",
-        "vegan": false,
-        "alergies": "Egg",
-        "price": 10.0,
-        "img": "assets/img/product/burger-eggburger.png"
-    }
-]
-```
-### Return food by id
-```GET: /food/{id}```
-```json
-[
-    [
-    {
-        "id": 4,
-        "name": "Cangreburger",
-        "type": "burger",
-        "ingredients": "Carne de cangrejo",
-        "vegan": false,
-        "alergies": "cangrejo",
-        "price": 15.0,
-        "img": "assets/img/product/burger-cangreburger.png"
-    }
+    "start_date": "2022-09-12",
+    "end_date": null,
+    "name": "Java Spring Boot",
+    "description": "Senior Java Team manager",
+    "requirements": "Java, Spring Boot",
+    "location": "Sevilla",
+    "sector": "Health",
+    "status": "Active",
+    "priority": "High",
+    "project_id": 123123123,
+    "remote": false,
+    "interviews": [
+      {
+        "id": 17,
+        "candidate": {
+          "id": 1,
+          "name": "Francisco",
+          "surname": "Domínguez",
+          "email": "frando@mail.com",
+          "skills": "Angular, Typescript, Java",
+          "studies": "F.P.",
+          "location": "Sevilla",
+          "experience": 1,
+          "hired": false,
+          "state": null,
+          "phone": null,
+          "notes": null
+        },
+        "interviewer": {
+          "id": 1,
+          "name": "usuario",
+          "username": "user",
+          "email": "user@mail.com",
+          "roles": [
+            {
+              "id": 3,
+              "name": "ROLE_ADMIN"
+            }
+          ],
+          "active": true
+        },
+        "status": null,
+        "feedback": "",
+        "interview_date": "2022-08-31 / 10:10:03",
+        "creation_date": "2022-08-14 / 22:14:12"
+      },
 ]
 ```
 ### Return food by category
