@@ -66,52 +66,99 @@ We are a group of enthusiastic coders excited about web developers. In our lates
 ```GET: /users```
 ```json
 [
-    {
-        "id": 1,
-        "name": "A registered user",
-        "address": "My address",
-        "username": "user@mail.com",
-        "phone": "123321123",
-        "password": "$2y$13$pjkCrATlcVzhRDl0KlgdZ.cHZQTsOK9Ig3kF/BmtXxjQ4eC90m32s",
-        "roles": [
-            {
-                "id": 2,
-                "name": "ROLE_ADMIN"
-            }
-        ],
-        "order": [
-            {
-                "id": 29,
-                "quantity": 1,
-                "uuid": "cc57007c-2c43-4b8c-a711-1e6fba2b1200",
-                "food": {
-                    "id": 16,
-                    "name": "Coca Cola",
-                    "type": "drink",
-                    "ingredients": "Cola",
-                    "vegan": false,
-                    "alergies": "none",
-                    "price": 2.0,
-                    "img": "assets/img/product/drink-cocacola.png"
-                }
-            },
-            {
-                "id": 30,
-                "quantity": 1,
-                "uuid": "cc57007c-2c43-4b8c-a711-1e6fba2b1200",
-                "food": {
-                    "id": 14,
-                    "name": "Double Burger",
-                    "type": "burger",
-                    "ingredients": "Double burger",
-                    "vegan": false,
-                    "alergies": "none",
-                    "price": 30.0,
-                    "img": "assets/img/product/burger-doubleburger.png"
-                }
-            }
-        ]
-    }
+
+      {
+        "id": 13,
+        "candidate": {
+          "id": 1,
+          "name": "Francisco",
+          "surname": "Domínguez",
+          "email": "frando@mail.com",
+          "skills": "Angular, Typescript, Java",
+          "studies": "F.P.",
+          "location": "Sevilla",
+          "experience": 1,
+          "hired": false,
+          "state": null,
+          "phone": null,
+          "notes": null
+        },
+        "selection": {
+          "id": 5,
+          "created_by": {
+            "id": 1,
+            "name": "usuario",
+            "username": "user",
+            "email": "user@mail.com",
+            "roles": [
+              {
+                "id": 4,
+                "name": "ROLE_PEOPLE"
+              },
+              {
+                "id": 6,
+                "name": "ROLE_INTERVIEWER"
+              }
+            ],
+            "active": true
+          },
+          "start_date": "2022-09-12",
+          "end_date": null,
+          "name": "Java Spring Boot",
+          "description": "Senior Java Team manager",
+          "requirements": "Java, Spring Boot",
+          "location": "Sevilla",
+          "sector": "Health",
+          "status": "Active",
+          "priority": "High",
+          "project_id": 123123123,
+          "remote": false
+        },
+        "status": null,
+        "feedback": "",
+        "interview_date": "2022-08-22 / 09:11:33",
+        "creation_date": "2022-08-14 / 20:52:50"
+      },
+      {
+        "id": 39,
+        "candidate": {
+          "id": 49,
+          "name": "Arvie",
+          "surname": "Hiley",
+          "email": "ahiley1c@sciencedaily.com",
+          "skills": "Namfix",
+          "studies": "Administrative Officer",
+          "location": "Yangjiafang",
+          "experience": 3,
+          "hired": true,
+          "state": "",
+          "phone": null,
+          "notes": null
+        },
+        "selection": {
+          "id": 5,
+          "created_by": 1,
+          "start_date": "2022-09-12",
+          "end_date": null,
+          "name": "Java Spring Boot",
+          "description": "Senior Java Team manager",
+          "requirements": "Java, Spring Boot",
+          "location": "Sevilla",
+          "sector": "Health",
+          "status": "Active",
+          "priority": "High",
+          "project_id": 123123123,
+          "remote": false
+        },
+        "status": null,
+        "feedback": "",
+        "interview_date": "2022-08-18 / 13:23:21",
+        "creation_date": "2022-08-18 / 13:23:23"
+      }
+    ],
+    "active": true
+  },
+  
 ]
 ```
 ### Return a user by {id} with roles and orders
