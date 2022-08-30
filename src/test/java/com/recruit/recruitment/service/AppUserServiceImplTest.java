@@ -35,14 +35,12 @@ class AppUserServiceImplTest {
     @Test
     void findByUsername() {
         AppUser appUser = new AppUser(
-
-                1L,
                 "user",
                 "user",
                 "user@mail.com",
-                "password",
-                true
+                "password"
         );
+        appUser.setId(1L);
         given(appUserRepo.findAppUserByUsername("user")).willReturn(Optional.of(appUser));
 
 
@@ -73,13 +71,12 @@ class AppUserServiceImplTest {
     @Test
     void saveUser() {
         AppUser appUser = new AppUser(
-                1L,
                 "user",
                 "user",
                 "user@mail.com",
-                "password",
-                true
+                "password"
         );
+        appUser.setId(1L);
         underTest.saveUser(appUser);
         verify(appUserRepo).save(appUser);
     }
@@ -87,13 +84,12 @@ class AppUserServiceImplTest {
     @Test
     void findById() {
         AppUser appUser = new AppUser(
-                1L,
                 "user",
                 "user",
                 "user@mail.com",
-                "password",
-                true
+                "password"
         );
+        appUser.setId(1L);
         given(appUserRepo.findById(appUser.getId())).willReturn(Optional.of(appUser));
         underTest.findById(appUser.getId());
         verify(appUserRepo).findById(appUser.getId());

@@ -40,13 +40,10 @@ class UserDetailsServiceImplTest {
     @Test
     void loadUserByUsername() {
         AppUser appUser = new AppUser(
-
-                1L,
                 "user",
                 "user",
                 "user@mail.com",
-                "password",
-                true
+                "password"
         );
         given(appUserRepo.findAppUserByUsername("user")).willReturn(Optional.of(appUser));
         underTest.findByUsername("user");
