@@ -2,7 +2,11 @@ package com.recruit.recruitment.controller;
 
 import com.recruit.recruitment.models.Interview;
 import com.recruit.recruitment.payload.request.StatisticInterview;
+import com.recruit.recruitment.payload.response.CandidatesPerMonth;
+import com.recruit.recruitment.payload.response.GeneralStatistics;
+import com.recruit.recruitment.service.CandidateServiceImpl;
 import com.recruit.recruitment.service.InterviewServiceImpl;
+import com.recruit.recruitment.service.SelectionServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,41 +19,36 @@ public class StatisticsController
 {
     final private InterviewServiceImpl interview;
 
-    public StatisticsController(InterviewServiceImpl interview)
+    final private CandidateServiceImpl candidate;
+
+    final private SelectionServiceImpl selection;
+
+    public StatisticsController(InterviewServiceImpl interview, CandidateServiceImpl candidate, SelectionServiceImpl selection)
     {
         this.interview = interview;
+        this.candidate = candidate;
+        this.selection = selection;
     }
 
-    @GetMapping("/interviews/range")
-    ResponseEntity<List<Interview>> range(@RequestBody StatisticInterview stats)
+    @GetMapping("general")
+    ResponseEntity<GeneralStatistics> general()
     {
-        List<Interview> interviewList = interview.listAll(), r = new ArrayList<>();
-        for(Interview i : interviewList)
-        {
-            final int mi = i.getCreation_date().getMonthValue();
-            if (mi >= stats.from && mi <= stats.to)
-                r.add(i);
-        }
-        return ResponseEntity.ok().body(r);
+        GeneralStatistics gs = new GeneralStatistics();
+        gs.totalCandidates = candidate.listAllCandidates().size();
+        gs.totalActiveSelections = selection.countActive();
+        gs.totalAverageHiringTime = selection.averageHiringTimeInDays();
+        return ResponseEntity.ok().body(gs);
     }
 
-    @GetMapping("/interviews/applicants")
-    ResponseEntity<?> applicants(@RequestBody Long interview_id)
+    @PostMapping("/interviews/range")
+    ResponseEntity<List<Integer>> range(@RequestBody StatisticInterview stats)
     {
-        Interview in = interview.findById(interview_id);
-        if(in == null)
-            return ResponseEntity.badRequest().body("No se pudo encontrar la entrevista con el ID: " + interview_id.toString());
-        return ResponseEntity.ok().body(in.getSelection().getInterviews().size());
+        return ResponseEntity.ok().body(interview.getRange(stats));
     }
 
-    @GetMapping("/interviews/year")
-    ResponseEntity<List<Interview>> sortedYear(@RequestBody int year)
+    @PostMapping("/selection/applicants")
+    ResponseEntity<CandidatesPerMonth> applicants(@RequestBody Long selection_id)
     {
-        List<Interview> interviewList = interview.listAll(), r = new ArrayList<>();
-        for(Interview i : interviewList)
-            if (i.getCreation_date().getYear() == year)
-                r.add(i);
-        r.sort(Comparator.comparing(Interview::getCreation_date));
-        return ResponseEntity.ok().body(r);
+        return ResponseEntity.ok().body(selection.getCandidatesPerMonth(selection_id));
     }
 }
