@@ -1,21 +1,14 @@
 package com.recruit.recruitment.service;
 
 import com.recruit.recruitment.models.AppUser;
-import com.recruit.recruitment.models.ERole;
-import com.recruit.recruitment.models.Role;
 import com.recruit.recruitment.repository.AppUserRepo;
 import com.recruit.recruitment.repository.RoleRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.ArrayList;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -40,14 +33,12 @@ class AppUserServiceImplTest {
     @Test
     void findByUsername() {
         AppUser appUser = new AppUser(
-
-                1L,
                 "user",
                 "user",
                 "user@mail.com",
-                "password",
-                true
+                "password"
         );
+        appUser.setId(1L);
         given(appUserRepo.findAppUserByUsername("user")).willReturn(Optional.of(appUser));
 
 
@@ -63,7 +54,6 @@ class AppUserServiceImplTest {
         underTest.existsByUsername("user");
         verify(appUserRepo).existsByUsername("user");
 
-
     }
 
     @Test
@@ -78,13 +68,13 @@ class AppUserServiceImplTest {
     @Test
     void saveUser() {
         AppUser appUser = new AppUser(
-                1L,
                 "user",
                 "user",
                 "user@mail.com",
-                "password",
-                true
+                "password"
         );
+        appUser.setId(1L);
+
         underTest.saveUser(appUser);
         verify(appUserRepo).save(appUser);
     }
@@ -92,13 +82,14 @@ class AppUserServiceImplTest {
     @Test
     void findById() {
         AppUser appUser = new AppUser(
-                1L,
                 "user",
                 "user",
                 "user@mail.com",
-                "password",
-                true
+                "password"
         );
+        appUser.setId(1L);
+        given(appUserRepo.findById(appUser.getId())).willReturn(Optional.of(appUser));
+
         underTest.findById(appUser.getId());
         verify(appUserRepo).findById(appUser.getId());
 
@@ -112,10 +103,8 @@ class AppUserServiceImplTest {
 
     @Test
     void findAppUserByRoles() {
-
-       underTest.findAppUserByRoles(any());
-       verify(appUserRepo).findAppUserByRoles(any());
-
+        underTest.findAppUserByRoles(any());
+        verify(appUserRepo).findAppUserByRoles(any());
     }
 
     @Test
@@ -127,15 +116,15 @@ class AppUserServiceImplTest {
     @Test
     void testFindById() {
         AppUser appUser = new AppUser(
-                1L,
                 "user",
                 "user",
                 "user@mail.com",
-                "password",
-                true
+                "password"
         );
+        appUser.setId(1L);
         underTest.saveUser(appUser);
         underTest.findById(1L);
         verify(appUserRepo).findById(1L);
     }
+
 }

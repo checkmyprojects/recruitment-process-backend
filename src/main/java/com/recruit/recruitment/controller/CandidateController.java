@@ -60,6 +60,7 @@ public class CandidateController {
         candidateToEdit.setState(candidate.getState());
         candidateToEdit.setStudies(candidate.getStudies());
         candidateToEdit.setHired(candidate.isHired());
+        candidateToEdit.setPhone(candidate.getPhone());
         candidateToEdit.setNotes(candidate.getNotes());
 
         return ResponseEntity.created(uri).body(candidateService.saveCandidate(candidateToEdit));

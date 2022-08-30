@@ -4,6 +4,7 @@ import com.recruit.recruitment.models.AppUser;
 import com.recruit.recruitment.models.Candidate;
 import com.recruit.recruitment.models.Interview;
 import com.recruit.recruitment.models.Selection;
+import com.recruit.recruitment.payload.request.InterviewRequest;
 import com.recruit.recruitment.security.MailSender;
 import com.recruit.recruitment.service.AppUserService;
 import com.recruit.recruitment.service.CandidateService;
@@ -51,23 +52,24 @@ public class InterviewController {
     }
 
     @PostMapping("/new")
-    ResponseEntity<?> saveInterview(@RequestBody String date, @RequestParam (value = "candidateid")Long candidateId, @RequestParam (value = "interviewerid")Long interviewerId, @RequestParam (value = "selectionid")Long selectionId){
-        if(candidateId == null || interviewerId == null || selectionId == null){
+    ResponseEntity<?> saveInterview(@RequestBody InterviewRequest interviewRequest){
+        if(interviewRequest.getCandidateId() == null || interviewRequest.getInterviewerId() == null || interviewRequest.getSelectionId() == null){
             return ResponseEntity.badRequest().body("Missing parameters on url");
         }else{
             URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/interview/new").toUriString());
-            System.out.println("Interviewer ID: " + interviewerId + ", Selection ID: " + selectionId + ", Candidate ID: " + candidateId);
+            System.out.println("Interviewer ID: " + interviewRequest.getInterviewerId() + ", Selection ID: " + interviewRequest.getSelectionId() + ", Candidate ID: " + interviewRequest.getCandidateId());
 
-            AppUser interviewer = appUserService.findById(interviewerId);
-            Selection selection = selectionService.findById(selectionId);
-            Candidate candidate = candidateService.findById(candidateId);
+            AppUser interviewer = appUserService.findById(interviewRequest.getInterviewerId());
+            Selection selection = selectionService.findById(interviewRequest.getSelectionId());
+            Candidate candidate = candidateService.findById(interviewRequest.getCandidateId());
 
             Interview interview = new Interview();
             interview.setInterviewer(interviewer);
             interview.setCandidate(candidate);
             interview.setSelection(selection);
-            interview.setFeedback("");
-            interview.setInterview_date(LocalDateTime.parse(date));
+            interview.setFeedback(interviewRequest.getFeedback());
+            interview.setStatus(interviewRequest.getStatus());
+            interview.setInterview_date(LocalDateTime.parse(interviewRequest.getDate()));
             interview.setCreation_date(LocalDateTime.now());
             System.out.println("Saving new Interview");
             //interviewService.save(interview);
@@ -121,23 +123,26 @@ public class InterviewController {
 //    }
 
     @PutMapping("/edit/{interviewId}")
-    ResponseEntity<?> editInterview(@RequestBody String date, @PathVariable Long interviewId, @RequestParam (value = "candidateid")Long candidateId, @RequestParam (value = "interviewerid")Long interviewerId, @RequestParam (value = "selectionid")Long selectionId){
-        if(candidateId == null || interviewerId == null || selectionId == null){
+    ResponseEntity<?> editInterview(@RequestBody InterviewRequest interviewRequest, @PathVariable Long interviewId){
+        if(interviewRequest.getCandidateId() == null || interviewRequest.getInterviewerId() == null || interviewRequest.getSelectionId() == null){
             return ResponseEntity.badRequest().body("Missing parameters on url");
         }else{
-            URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/interview/new").toUriString());
-            System.out.println("Interviewer ID: " + interviewerId + ", Selection ID: " + selectionId + ", Candidate ID: " + candidateId);
+            URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/interview/edit").toUriString());
+            System.out.println("Interviewer ID: " + interviewRequest.getInterviewerId() + ", Selection ID: " + interviewRequest.getSelectionId() + ", Candidate ID: " + interviewRequest.getCandidateId());
 
-            AppUser interviewer = appUserService.findById(interviewerId);
-            Selection selection = selectionService.findById(selectionId);
-            Candidate candidate = candidateService.findById(candidateId);
+            AppUser interviewer = appUserService.findById(interviewRequest.getInterviewerId());
+            Selection selection = selectionService.findById(interviewRequest.getSelectionId());
+            Candidate candidate = candidateService.findById(interviewRequest.getCandidateId());
 
             Interview interview = interviewService.findById(interviewId);
             interview.setInterviewer(interviewer);
             interview.setCandidate(candidate);
             interview.setSelection(selection);
-            interview.setInterview_date(LocalDateTime.parse(date));
+            interview.setFeedback(interviewRequest.getFeedback());
+            interview.setStatus(interviewRequest.getStatus());
+            interview.setInterview_date(LocalDateTime.parse(interviewRequest.getDate()));
             System.out.println("Saving edited Interview");
+
             // interviewService.save(interview);
 //            try {
 //                MailSender.send(candidate.getEmail(), interview.getSelection().getName(), candidate.getName(), interviewer.getName(), interviewer.getEmail(), interview.getInterview_date().toString(), interview.getSelection().getLocation(), interview.getSelection().isRemote(), interview.getSelection().getDescription());

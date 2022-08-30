@@ -38,6 +38,15 @@ public class Interview
     @JsonIgnoreProperties({"interviews"}) // Remove interviews on JSON
     private Selection selection;
 
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     private String feedback;
 
@@ -72,7 +81,28 @@ public class Interview
         this.interview_date = interview_date;
         this.creation_date = creation_date;
     }
-/*
+
+    public Interview(Candidate candidate, AppUser interviewer, Selection selection, String status, String feedback, LocalDateTime interview_date, LocalDateTime creation_date) {
+        this.candidate = candidate;
+        this.interviewer = interviewer;
+        this.selection = selection;
+        this.status = status;
+        this.feedback = feedback;
+        this.interview_date = interview_date;
+        this.creation_date = creation_date;
+    }
+
+    public Interview(Long id, Candidate candidate, AppUser interviewer, Selection selection, String status, String feedback, LocalDateTime interview_date, LocalDateTime creation_date) {
+        this.id = id;
+        this.candidate = candidate;
+        this.interviewer = interviewer;
+        this.selection = selection;
+        this.status = status;
+        this.feedback = feedback;
+        this.interview_date = interview_date;
+        this.creation_date = creation_date;
+    }
+    /*
     public Interview(Candidate candidate, AppUser interviewer, Selection selection, String feedback, Date interview_date) {
         this.candidate = candidate;
         this.interviewer = interviewer;

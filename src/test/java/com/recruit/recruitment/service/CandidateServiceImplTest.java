@@ -8,6 +8,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,7 +47,9 @@ class CandidateServiceImplTest {
 
     @Test
     void findById() {
-        underTest.findById(2L);
-        verify(candidateRepo).findById(2L);
+        Candidate candidate = new Candidate();
+        given(candidateRepo.findById(candidate.getId())).willReturn(Optional.of(candidate));
+        underTest.findById(candidate.getId());
+        verify(candidateRepo).findById(candidate.getId());
     }
 }
