@@ -19,25 +19,18 @@ public class StatisticsController
 {
     final private InterviewServiceImpl interview;
 
-    final private CandidateServiceImpl candidate;
-
     final private SelectionServiceImpl selection;
 
-    public StatisticsController(InterviewServiceImpl interview, CandidateServiceImpl candidate, SelectionServiceImpl selection)
+    public StatisticsController(InterviewServiceImpl interview, SelectionServiceImpl selection)
     {
         this.interview = interview;
-        this.candidate = candidate;
         this.selection = selection;
     }
 
     @GetMapping("general")
     ResponseEntity<GeneralStatistics> general()
     {
-        GeneralStatistics gs = new GeneralStatistics();
-        gs.totalCandidates = candidate.listAllCandidates().size();
-        gs.totalActiveSelections = selection.countActive();
-        gs.totalAverageHiringTime = selection.averageHiringTimeInDays();
-        return ResponseEntity.ok().body(gs);
+        return ResponseEntity.ok().body(selection.getStats());
     }
 
     @PostMapping("/interviews/range")

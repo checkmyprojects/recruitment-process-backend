@@ -4,6 +4,7 @@ import com.recruit.recruitment.models.Interview;
 import com.recruit.recruitment.models.Selection;
 import com.recruit.recruitment.payload.request.StatisticInterview;
 import com.recruit.recruitment.payload.response.CandidatesPerMonth;
+import com.recruit.recruitment.payload.response.GeneralStatistics;
 import com.recruit.recruitment.repository.SelectionRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
@@ -24,8 +25,11 @@ public class SelectionServiceImpl implements SelectionService{
 
     private final SelectionRepo selectionRepo;
 
-    public SelectionServiceImpl(SelectionRepo selectionRepo) {
+    private final CandidateServiceImpl candidate;
+
+    public SelectionServiceImpl(SelectionRepo selectionRepo, CandidateServiceImpl candidate) {
         this.selectionRepo = selectionRepo;
+        this.candidate = candidate;
     }
 
     @Override
@@ -66,6 +70,15 @@ public class SelectionServiceImpl implements SelectionService{
         for(Selection s : selections)
             counter += (int)(((s.getEnd_date() != null ? s.getEnd_date().getTime() : s.getStart_date().getTime()) - s.getStart_date().getTime()) / 86400000);
         return counter;
+    }
+
+    public GeneralStatistics getStats()
+    {
+        GeneralStatistics gs = new GeneralStatistics();
+        gs.totalCandidates = candidate.listAllCandidates().size();
+        gs.totalActiveSelections = countActive();
+        gs.totalAverageHiringTime = averageHiringTimeInDays();
+        return gs;
     }
 
     public CandidatesPerMonth getCandidatesPerMonth(long id)
