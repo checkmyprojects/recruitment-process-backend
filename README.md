@@ -725,12 +725,6 @@ Returns:
 </details>
 
 
-### :memo: Lessons Learned:
-
-
----
-
-
 ### :spiral_notepad: License
 
 This project is licensed under the **Entiteam** License - see the file [LICENSE.md](LICENSE.md) for details.
