@@ -125,9 +125,7 @@ public class SelectionServiceImpl implements SelectionService{
                 int rr = 0;
                 for (Interview i : interviewList)
                     if(i.getInterview_date().getYear() == x && i.getInterview_date().getMonthValue() == y)
-                    //if (i.getSelection().getStart_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().getYear() == x)
-                        //if (i.getSelection().getStart_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().getMonthValue() == y)
-                                ++rr;
+                        ++rr;
                 cpm.candidates.add(rr);
             }
         return cpm;
