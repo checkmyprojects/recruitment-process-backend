@@ -125,10 +125,10 @@ public class SelectionServiceImpl implements SelectionService{
                 int rr = 0;
                 for (Interview i : interviewList)
                 {
-                    int mi = i.getCreation_date().getYear();
+                    int mi = i.getSelection().getStart_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().getYear();
                     if (mi >= x && mi <= x)
                     {
-                        mi = i.getCreation_date().getMonthValue();
+                        mi = i.getSelection().getStart_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().getMonthValue();
                         if (mi >= y && mi <= y)
                             ++rr;
                     }
