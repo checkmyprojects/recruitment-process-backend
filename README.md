@@ -481,6 +481,108 @@ Returns:
 
 <details>
 <summary>List All Interviews</summary>
+
+```json
+
+{
+"id": 5,
+"created_by": {
+"id": 1,
+"name": "usuario",
+"username": "user",
+"email": "user@mail.com",
+"roles": [
+{
+"id": 3,
+"name": "ROLE_ADMIN"
+}
+],
+"active": true
+},
+"start_date": "2022-09-12",
+"end_date": null,
+"name": "Java Spring Boot",
+"description": "Senior Java Team manager",
+"requirements": "Java, Spring Boot",
+"location": "Sevilla",
+"sector": "Health",
+"status": "Active",
+"priority": "High",
+"project_id": 123123123,
+"remote": false,
+"interviews": [
+{
+"id": 35,
+"candidate": {
+"id": 36,
+"name": "Berget",
+"surname": "Cakebread",
+"email": "bcakebreadz@yahoo.co.jp",
+"skills": "Tampflex",
+"studies": "Structural Engineer",
+"location": "Hekou",
+"experience": 12,
+"hired": true,
+"state": "",
+"phone": null,
+"notes": null
+},
+"interviewer": {
+"id": 1,
+"name": "usuario",
+"username": "user",
+"email": "user@mail.com",
+"roles": [
+{
+"id": 3,
+"name": "ROLE_ADMIN"
+}
+],
+"active": true
+},
+"status": null,
+"feedback": "",
+"interview_date": "2022-08-18 / 12:19:37",
+"creation_date": "2022-08-18 / 12:19:39"
+},
+{
+"id": 18,
+"candidate": {
+"id": 1,
+"name": "Francisco",
+"surname": "Domínguez",
+"email": "frando@mail.com",
+"skills": "Angular, Typescript, Java",
+"studies": "F.P.",
+"location": "Sevilla",
+"experience": 1,
+"hired": false,
+"state": null,
+"phone": null,
+"notes": null
+},
+"interviewer": {
+"id": 1,
+"name": "usuario",
+"username": "user",
+"email": "user@mail.com",
+"roles": [
+{
+"id": 3,
+"name": "ROLE_ADMIN"
+}
+],
+"active": true
+},
+"status": null,
+"feedback": "",
+"interview_date": "2022-08-29 / 15:15:36",
+"creation_date": "2022-08-14 / 22:17:45"
+},
+
+
+```
+
 </details>
 
 <details>
@@ -533,8 +635,80 @@ Returns:
 ```POST: /interview/new```
 ```json
 [
-   
+  {
+    "candidateId": 5,
+    "interviewerId": 1,
+    "selectionId": 5,
+    "date": "2022-01-01T22:22:22",
+    "status": "Activo",
+    "feedback": ""
+
+  }
 ]
+```
+Returns:
+```json
+{
+  "id": 40,
+  "candidate": {
+    "id": 5,
+    "name": "Benedetta",
+    "surname": "Scurry",
+    "email": "bscurry4@istockphoto.com",
+    "skills": "Keylex",
+    "studies": "Senior Cost Accountant",
+    "location": "Mevo horon",
+    "experience": 24,
+    "hired": true,
+    "state": "",
+    "phone": null,
+    "notes": null
+  },
+  "interviewer": {
+    "id": 1,
+    "name": "usuario",
+    "username": "user",
+    "email": "user@mail.com",
+    "roles": [
+      {
+        "id": 3,
+        "name": "ROLE_ADMIN"
+      }
+    ],
+    "active": true
+  },
+  "selection": {
+    "id": 5,
+    "created_by": {
+      "id": 1,
+      "name": "usuario",
+      "username": "user",
+      "email": "user@mail.com",
+      "roles": [
+        {
+          "id": 3,
+          "name": "ROLE_ADMIN"
+        }
+      ],
+      "active": true
+    },
+    "start_date": "2022-09-12",
+    "end_date": null,
+    "name": "Java Spring Boot",
+    "description": "Senior Java Team manager",
+    "requirements": "Java, Spring Boot",
+    "location": "Sevilla",
+    "sector": "Health",
+    "status": "Active",
+    "priority": "High",
+    "project_id": 123123123,
+    "remote": false
+  },
+  "status": "Activo",
+  "feedback": "",
+  "interview_date": "2022-01-01 / 22:22:22",
+  "creation_date": "2022-08-31 / 08:59:45"
+}
 ```
 
 </details>
@@ -542,13 +716,14 @@ Returns:
 <details>
 <summary>Delete Interview by {id}</summary>
 
-```POST: /interview/delete/5```
+```DELETE: /interview/delete/40```
+
 ```json
-[
-   
-]
+{ void }
 ```
+
 </details>
+
 
 ### :memo: Lessons Learned:
 
