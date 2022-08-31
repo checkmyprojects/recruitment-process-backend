@@ -1,7 +1,12 @@
 package com.recruit.recruitment.payload.request;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotBlank;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginRequest {
 
     @NotBlank

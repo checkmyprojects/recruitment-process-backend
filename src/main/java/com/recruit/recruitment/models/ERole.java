@@ -1,7 +1,8 @@
 package com.recruit.recruitment.models;
 
 public enum ERole {
-    ROLE_USER,
-    ROLE_MODERATOR,
+    ROLE_PEOPLE,
+    ROLE_BUSINESS,
+    ROLE_INTERVIEWER,
     ROLE_ADMIN
 }

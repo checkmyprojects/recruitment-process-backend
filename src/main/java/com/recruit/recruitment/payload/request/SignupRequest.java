@@ -1,11 +1,19 @@
 package com.recruit.recruitment.payload.request;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class SignupRequest {
+    @NotBlank
+    @Size(min = 3, max = 20)
+    private String name;
 
     @NotBlank
     @Size(min = 3, max = 20)
@@ -21,6 +29,14 @@ public class SignupRequest {
     @NotBlank
     @Size(min = 3, max = 40)
     private String password;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getUsername() {
         return username;
