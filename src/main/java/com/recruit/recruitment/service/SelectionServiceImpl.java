@@ -54,7 +54,7 @@ public class SelectionServiceImpl implements SelectionService{
         Integer counter = 0;
         List<Selection> selections = selectionRepo.findAll();
         for(Selection s : selections)
-            if(s.getStatus().equals("Activo"))
+            if(s.getStatus().equals("Abierto"))
                 ++counter;
         return counter;
     }
@@ -124,15 +124,8 @@ public class SelectionServiceImpl implements SelectionService{
                 }
                 int rr = 0;
                 for (Interview i : interviewList)
-                {
-                    int mi = i.getCreation_date().getYear();
-                    if (mi >= x && mi <= x)
-                    {
-                        mi = i.getCreation_date().getMonthValue();
-                        if (mi >= y && mi <= y)
-                            ++rr;
-                    }
-                }
+                    if(i.getInterview_date().getYear() == x && i.getInterview_date().getMonthValue() == y)
+                        ++rr;
                 cpm.candidates.add(rr);
             }
         return cpm;

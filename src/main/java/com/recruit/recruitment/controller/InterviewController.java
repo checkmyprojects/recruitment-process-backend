@@ -72,14 +72,14 @@ public class InterviewController {
             interview.setInterview_date(LocalDateTime.parse(interviewRequest.getDate()));
             interview.setCreation_date(LocalDateTime.now());
             System.out.println("Saving new Interview");
-            //interviewService.save(interview);
-//            try {
-//                MailSender.send(candidate.getEmail(), interview.getSelection().getName(), candidate.getName(), interviewer.getName(), interviewer.getEmail(), interview.getInterview_date().toString(), interview.getSelection().getLocation(), interview.getSelection().isRemote(), interview.getSelection().getDescription());
-//            } catch (MessagingException e)
-//            {
-//                System.out.println(e.getMessage());
-//                return ResponseEntity.badRequest().body("The email couldn't be sent");
-//            }
+            interviewService.save(interview);
+            try {
+                MailSender.send(candidate.getEmail(), interview.getSelection().getName(), candidate.getName(), interviewer.getName(), interviewer.getEmail(), interview.getInterview_date().toString(), interview.getSelection().getLocation(), interview.getSelection().isRemote(), interview.getSelection().getDescription());
+            } catch (MessagingException e)
+            {
+                System.out.println(e.getMessage());
+                return ResponseEntity.badRequest().body("The email couldn't be sent");
+            }
             // Return interview so we add it to the frontend table
             return ResponseEntity.created(uri).body(interviewService.save(interview));
         }

@@ -36,6 +36,7 @@ public class StatisticsController
         GeneralStatistics gs = new GeneralStatistics();
         gs.totalCandidates = candidate.listAllCandidates().size();
         gs.totalActiveSelections = selection.countActive();
+        gs.totalNoActiveSelections = selection.listAll().size() - gs.totalActiveSelections;
         gs.totalAverageHiringTime = selection.averageHiringTimeInDays();
         return ResponseEntity.ok().body(gs);
     }
