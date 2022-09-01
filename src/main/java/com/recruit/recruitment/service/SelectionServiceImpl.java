@@ -54,7 +54,7 @@ public class SelectionServiceImpl implements SelectionService{
         Integer counter = 0;
         List<Selection> selections = selectionRepo.findAll();
         for(Selection s : selections)
-            if(s.getStatus().equals("Activo"))
+            if(s.getStatus().equals("Abierto"))
                 ++counter;
         return counter;
     }
