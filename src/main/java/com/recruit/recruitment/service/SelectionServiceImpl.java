@@ -65,7 +65,7 @@ public class SelectionServiceImpl implements SelectionService{
         List<Selection> selections = selectionRepo.findAll();
         for(Selection s : selections)
             counter += (int)(((s.getEnd_date() != null ? s.getEnd_date().getTime() : s.getStart_date().getTime()) - s.getStart_date().getTime()) / 86400000);
-        return counter;
+        return counter / selections.size();
     }
 
     public CandidatesPerMonth getCandidatesPerMonth(long id)
