@@ -1,6 +1,5 @@
 package com.recruit.recruitment.controller;
 
-import com.recruit.recruitment.models.Interview;
 import com.recruit.recruitment.payload.request.StatisticInterview;
 import com.recruit.recruitment.payload.response.CandidatesPerMonth;
 import com.recruit.recruitment.payload.response.GeneralStatistics;
@@ -10,7 +9,7 @@ import com.recruit.recruitment.service.SelectionServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
