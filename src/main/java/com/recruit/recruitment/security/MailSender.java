@@ -50,7 +50,7 @@ public class MailSender implements CommandLineRunner
         });
     }
 
-    public static void send(String email, String position, String candidate, String interviewerName, String interviewerEmail, String interviewDate, String interviewLocation, boolean interviewRemote, String interviewDescription) throws MessagingException
+    public static void send(String zoomUrl, String email, String position, String candidate, String interviewerName, String interviewerEmail, String interviewDate, String interviewLocation, boolean interviewRemote, String interviewDescription) throws MessagingException
     {
         Message message = new MimeMessage(session);
         message.setSubject("Entrevista para la candidatura a " + position);
@@ -63,7 +63,7 @@ public class MailSender implements CommandLineRunner
                 interviewLocation) + "</li><li>Descripción: " + interviewDescription +
                 "</li></ul><br><br>Datos del entrevistador/a:<ul><li>Nombre: " + interviewerName + "</li><li>Email: " +
                 interviewerEmail + "</li></ul><br><br><h4>Tiene su entrevista el " + interviewDate.replace('T', ' ') +
-                "<br><br>Muchas gracias por su participación</h4>", "text/html; charset=utf-8");
+                "en el siguiente link: " + zoomUrl + "<br><br>Muchas gracias por su participación</h4>", "text/html; charset=utf-8");
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(body);
         message.setContent(multipart);

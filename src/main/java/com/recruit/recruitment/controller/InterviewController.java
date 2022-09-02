@@ -74,7 +74,7 @@ public class InterviewController {
             System.out.println("Saving new Interview");
             interviewService.save(interview);
             try {
-                MailSender.send(candidate.getEmail(), interview.getSelection().getName(), candidate.getName(), interviewer.getName(), interviewer.getEmail(), interview.getInterview_date().toString(), interview.getSelection().getLocation(), interview.getSelection().isRemote(), interview.getSelection().getDescription());
+                MailSender.send("https://us02web.zoom.us/j/87256604237?pwd=YkxyRkcvVGljdDVMTU80ZjdjVWtZUT09", candidate.getEmail(), interview.getSelection().getName(), candidate.getName(), interviewer.getName(), interviewer.getEmail(), interview.getInterview_date().toString(), interview.getSelection().getLocation(), interview.getSelection().isRemote(), interview.getSelection().getDescription());
             } catch (MessagingException e)
             {
                 System.out.println(e.getMessage());
