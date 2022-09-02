@@ -63,7 +63,7 @@ public class MailSender implements CommandLineRunner
                 interviewLocation) + "</li><li>Descripción: " + interviewDescription +
                 "</li></ul><br><br>Datos del entrevistador/a:<ul><li>Nombre: " + interviewerName + "</li><li>Email: " +
                 interviewerEmail + "</li></ul><br><br><h4>Tiene su entrevista el " + interviewDate.replace('T', ' ') +
-                "en el siguiente link: " + zoomUrl + "<br><br>Muchas gracias por su participación</h4>", "text/html; charset=utf-8");
+                " en el siguiente link: " + zoomUrl + "<br><br>Muchas gracias por su participación</h4>", "text/html; charset=utf-8");
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(body);
         message.setContent(multipart);

@@ -10,14 +10,13 @@ import com.recruit.recruitment.service.AppUserService;
 import com.recruit.recruitment.service.CandidateService;
 import com.recruit.recruitment.service.InterviewService;
 import com.recruit.recruitment.service.SelectionService;
-import javax.mail.MessagingException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import java.net.URI;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
