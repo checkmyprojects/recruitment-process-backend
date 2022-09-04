@@ -725,10 +725,6 @@ Returns:
 </details>
 
 
-### :spiral_notepad: License
-
-This project is licensed under the **Entiteam** License - see the file [LICENSE.md](LICENSE.md) for details.
-
 ### :gift: Thanks
 
 * Tell others about this project 📢
